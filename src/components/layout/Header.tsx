@@ -79,9 +79,9 @@ export function Header() {
                 {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
               </button>
             )}
-            <Button size="sm" className="hidden lg:inline-flex">
-              RSVP
-            </Button>
+            <a href="#gala" className="hidden lg:inline-flex">
+              <Button size="sm">RSVP</Button>
+            </a>
             <button
               onClick={() => setMobileOpen(true)}
               className="rounded-full p-2 text-muted-foreground lg:hidden"
@@ -129,9 +129,11 @@ export function Header() {
                   {link.label}
                 </motion.a>
               ))}
-              <Button size="lg" className="mt-8">
-                RSVP to Gala
-              </Button>
+              <a href="#gala" onClick={() => setMobileOpen(false)}>
+                <Button size="lg" className="mt-8 w-full">
+                  RSVP to Gala
+                </Button>
+              </a>
             </nav>
           </motion.div>
         )}

@@ -29,12 +29,12 @@ export function Hero() {
           className="mx-auto mb-4"
         >
           <Image
-            src="/agmlogo.avif"
-            alt="AGM Logo"
-            width={160}
-            height={160}
+            src="/agm40.jpg"
+            alt="AGM 40th Anniversary Logo"
+            width={240}
+            height={240}
             priority
-            className="mx-auto h-42 w-42 sm:h-54 sm:w-54 md:h-60 md:w-60 object-contain transition-[filter] duration-500 dark:invert dark:brightness-200"
+            className="mx-auto h-48 w-48 sm:h-56 sm:w-56 md:h-64 md:w-64 rounded-full object-cover shadow-2xl ring-2 ring-white/20"
           />
         </motion.div>
 

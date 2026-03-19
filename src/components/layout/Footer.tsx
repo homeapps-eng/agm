@@ -28,9 +28,10 @@ export function Footer() {
           </div>
           <div>
             <h3 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-3">Contact</h3>
-            <p className="text-sm text-muted-foreground">1 University Avenue</p>
-            <p className="text-sm text-muted-foreground">Yerevan, Armenia</p>
-            <p className="text-sm text-muted-foreground mt-2">anniversary@agm.edu</p>
+            <p className="text-sm text-muted-foreground">5311 W McFadden Ave</p>
+            <p className="text-sm text-muted-foreground">Santa Ana, CA 92704</p>
+            <p className="text-sm text-muted-foreground mt-2">contact@agmschool.org</p>
+            <p className="text-sm text-muted-foreground">+1 (714) 839-7831</p>
           </div>
         </div>
         <div className="mt-10 flex items-center justify-center gap-1 border-t border-border pt-8 text-sm text-muted-foreground">

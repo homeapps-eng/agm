@@ -25,7 +25,7 @@ export function Gala() {
   return (
     <SectionWrapper id="gala" className="bg-muted/30">
       <SectionHeading
-        badge="September 15, 2026"
+        badge="November 14, 2026"
         title="Anniversary Gala"
         subtitle="An unforgettable evening celebrating 40 years of excellence."
       />

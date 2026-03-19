@@ -64,9 +64,12 @@ export function Gallery() {
                 )}
                 style={{ aspectRatio: `${img.width}/${img.height}` }}
               >
-                <div className="absolute inset-0 flex items-center justify-center text-muted-foreground text-sm">
-                  {img.alt}
-                </div>
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  className="absolute inset-0 h-full w-full object-cover"
+                  loading="lazy"
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 transition-opacity duration-300 hover:opacity-100" />
               </div>
             </motion.div>
@@ -82,15 +85,16 @@ export function Gallery() {
       >
         {selectedIndex !== null && filtered[selectedIndex] && (
           <div className="relative">
-            <div
-              className="flex items-center justify-center rounded-xl bg-muted/20 text-white"
+            <img
+              src={filtered[selectedIndex].src}
+              alt={filtered[selectedIndex].alt}
+              className="rounded-xl"
               style={{
-                aspectRatio: `${filtered[selectedIndex].width}/${filtered[selectedIndex].height}`,
                 maxHeight: "70vh",
+                width: "100%",
+                objectFit: "contain",
               }}
-            >
-              <span className="text-lg">{filtered[selectedIndex].alt}</span>
-            </div>
+            />
             <p className="mt-3 text-center text-sm text-white/70">
               {filtered[selectedIndex].alt} &mdash; {filtered[selectedIndex].category}
             </p>

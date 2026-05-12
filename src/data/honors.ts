@@ -18,9 +18,10 @@ export interface Achievement {
 
 export const stats: Stat[] = [
   { label: "Years of Excellence", value: 40, suffix: "" },
-  { label: "Graduates Worldwide", value: 50000, suffix: "+" },
-  { label: "Countries Represented", value: 80, suffix: "+" },
-  { label: "Research Publications", value: 12000, suffix: "+" },
+  { label: "Students", value: 3456, suffix: "" },
+  { label: "Alumni", value: 246, suffix: "" },
+  { label: "Students Enrolled", value: 188, suffix: "" },
+  { label: "Faculty Members", value: 36, suffix: "" },
 ];
 
 export const notableAlumni: Alumni[] = [

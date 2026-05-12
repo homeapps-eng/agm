@@ -1,249 +1,146 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
+import Image from "next/image";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { GlassCard } from "@/components/ui/GlassCard";
-import { campusLocations, type CampusLocation } from "@/data/campus";
-import { X, School, Church, Building, TreePine, Landmark, Dribbble } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { buildings, type Building } from "@/data/buildings";
+import { RotateCw } from "lucide-react";
 
-const categoryIcons = {
-  school: School,
-  church: Church,
-  hall: Building,
-  center: Landmark,
-  sports: Dribbble,
-  outdoor: TreePine,
-};
+const GOOGLE_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY;
 
-const categoryColors = {
-  school: "bg-violet text-white",
-  church: "bg-gold text-white",
-  hall: "bg-emerald-500 text-white",
-  center: "bg-rose-500 text-white",
-  sports: "bg-blue-500 text-white",
-  outdoor: "bg-sky-500 text-white",
-};
-
-const categoryLabels = {
-  school: "School",
-  church: "Church",
-  hall: "Hall",
-  center: "Center",
-  sports: "Sports",
-  outdoor: "Outdoor",
-};
+function streetViewUrl(b: Building, size = "600x400") {
+  if (!GOOGLE_KEY) return null;
+  return `https://maps.googleapis.com/maps/api/streetview?size=${size}&location=${b.lat},${b.lng}&heading=${b.heading}&pitch=10&fov=85&key=${GOOGLE_KEY}`;
+}
 
 export function CampusMap() {
-  const [selected, setSelected] = useState<CampusLocation | null>(null);
-
   return (
-    <SectionWrapper id="campus">
+    <SectionWrapper id="campus" className="overflow-hidden">
       <SectionHeading
-        badge="Explore"
-        title="Our Campus"
-        subtitle="5315 W McFadden Ave, Santa Ana, CA — home to AGM and Forty Martyrs Armenian Apostolic Church."
+        badge="Campus"
+        title="The AGM Deck"
+        subtitle="Every corner of campus, one card at a time. Tap any card to flip it."
       />
 
-      <div className="relative mx-auto max-w-4xl">
-        {/* SVG Campus Illustration */}
-        <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-border bg-muted/50">
-          <svg
-            viewBox="0 0 160 100"
-            className="absolute inset-0 h-full w-full"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            {/* Ground / grass */}
-            <rect x="0" y="0" width="160" height="100" className="fill-emerald-50 dark:fill-emerald-950/20" />
-
-            {/* Road at top */}
-            <rect x="0" y="0" width="160" height="5" className="fill-stone-200 dark:fill-stone-800" />
-            <line x1="0" y1="2.5" x2="160" y2="2.5" className="stroke-stone-300 dark:stroke-stone-600" strokeWidth="0.3" strokeDasharray="3 2" />
-
-            {/* Road at bottom */}
-            <rect x="0" y="95" width="160" height="5" className="fill-stone-200 dark:fill-stone-800" />
-            <line x1="0" y1="97.5" x2="160" y2="97.5" className="stroke-stone-300 dark:stroke-stone-600" strokeWidth="0.3" strokeDasharray="3 2" />
-
-            {/* Paths / walkways */}
-            <path d="M30 45 L48 45" fill="none" className="stroke-stone-300 dark:stroke-stone-700" strokeWidth="0.8" strokeDasharray="2 1.5" />
-            <path d="M72 55 L72 65" fill="none" className="stroke-stone-300 dark:stroke-stone-700" strokeWidth="0.8" strokeDasharray="2 1.5" />
-            <path d="M72 45 L100 45" fill="none" className="stroke-stone-300 dark:stroke-stone-700" strokeWidth="0.8" strokeDasharray="2 1.5" />
-            <path d="M30 55 L30 65" fill="none" className="stroke-stone-300 dark:stroke-stone-700" strokeWidth="0.8" strokeDasharray="2 1.5" />
-
-            {/* ===== TOP-LEFT: Parking ===== */}
-            <rect x="5" y="7" width="30" height="12" rx="1" className="fill-stone-200/60 dark:fill-stone-700/30 stroke-stone-300 dark:stroke-stone-600" strokeWidth="0.3" />
-            {[9, 15, 21, 27].map((px) => (
-              <rect key={px} x={px} y={9} width="3" height="7" rx="0.5" className="fill-stone-300/40 dark:fill-stone-600/30 stroke-stone-400/30" strokeWidth="0.2" />
-            ))}
-            <text x="20" y="6" textAnchor="middle" className="fill-stone-400 dark:fill-stone-500" fontSize="2">Parking</text>
-
-            {/* ===== TOP-RIGHT: Gugasian Hall ===== */}
-            <rect x="55" y="7" width="55" height="18" rx="2" className="fill-emerald-50 dark:fill-emerald-900/20 stroke-emerald-400/40" strokeWidth="0.6" />
-            {[60, 67, 74, 81, 88, 95, 102].map((wx) => (
-              <rect key={wx} x={wx} y={12} width="2.5" height="2.5" rx="0.3" className="fill-emerald-400/15 stroke-emerald-400/25" strokeWidth="0.2" />
-            ))}
-            {[60, 67, 74, 81, 88, 95, 102].map((wx) => (
-              <rect key={`b${wx}`} x={wx} y={18} width="2.5" height="2.5" rx="0.3" className="fill-emerald-400/15 stroke-emerald-400/25" strokeWidth="0.2" />
-            ))}
-            <text x="82" y="6" textAnchor="middle" className="fill-emerald-600/50 dark:fill-emerald-400/40" fontSize="2.8">Gugasian Hall</text>
-
-            {/* ===== LEFT: Preschool (below parking) ===== */}
-            <rect x="5" y="23" width="30" height="16" rx="2" className="fill-sky-50 dark:fill-sky-900/20 stroke-sky-400/40" strokeWidth="0.6" />
-            <circle cx="13" cy="31" r="1" className="fill-sky-300/30" />
-            <circle cx="18" cy="29" r="1.2" className="fill-sky-300/30" />
-            <circle cx="23" cy="32" r="0.8" className="fill-sky-300/30" />
-            <circle cx="28" cy="30" r="1" className="fill-sky-300/30" />
-            <text x="20" y="22" textAnchor="middle" className="fill-sky-600/50 dark:fill-sky-400/40" fontSize="2.5">Preschool</text>
-
-            {/* ===== Small parking above AGM ===== */}
-            <rect x="38" y="28" width="22" height="8" rx="1" className="fill-stone-200/60 dark:fill-stone-700/30 stroke-stone-300 dark:stroke-stone-600" strokeWidth="0.3" />
-            {[41, 46, 51].map((px) => (
-              <rect key={px} x={px} y={30} width="3" height="4" rx="0.5" className="fill-stone-300/40 dark:fill-stone-600/30 stroke-stone-400/30" strokeWidth="0.2" />
-            ))}
-
-            {/* ===== CENTER: AGM Main School Building ===== */}
-            <rect x="5" y="38" width="68" height="26" rx="2" className="fill-violet/10 stroke-violet/40" strokeWidth="0.6" />
-            {/* Entrance */}
-            <rect x="35" y="64" width="8" height="3" rx="0.5" className="fill-violet/20 stroke-violet/30" strokeWidth="0.3" />
-            {/* Windows row 1 */}
-            {[10, 18, 26, 34, 42, 50, 58, 66].map((wx) => (
-              <rect key={wx} x={wx} y={43} width="3" height="3" rx="0.3" className="fill-violet/15 stroke-violet/25" strokeWidth="0.2" />
-            ))}
-            {/* Windows row 2 */}
-            {[10, 18, 26, 34, 42, 50, 58, 66].map((wx) => (
-              <rect key={`b${wx}`} x={wx} y={51} width="3" height="3" rx="0.3" className="fill-violet/15 stroke-violet/25" strokeWidth="0.2" />
-            ))}
-            <text x="39" y="36" textAnchor="middle" className="fill-violet/60 dark:fill-violet/40" fontSize="3.5" fontWeight="bold">AGM</text>
-
-            {/* ===== Barsamian Center (from AGM right wall) ===== */}
-            <rect x="73" y="38" width="22" height="26" rx="2" className="fill-rose-50 dark:fill-rose-900/20 stroke-rose-400/40" strokeWidth="0.6" />
-            {[76, 82, 88].map((wx) => (
-              <rect key={wx} x={wx} y={46} width="2" height="2" rx="0.3" className="fill-rose-400/15 stroke-rose-400/25" strokeWidth="0.2" />
-            ))}
-            <text x="84" y="36" textAnchor="middle" className="fill-rose-600/50 dark:fill-rose-400/40" fontSize="2.2">Barsamian Center</text>
-
-            {/* ===== Small parking above Church ===== */}
-            <rect x="118" y="30" width="24" height="7" rx="1" className="fill-stone-200/60 dark:fill-stone-700/30 stroke-stone-300 dark:stroke-stone-600" strokeWidth="0.3" />
-            {[122, 128, 134].map((px) => (
-              <rect key={px} x={px} y={32} width="3" height="3.5" rx="0.5" className="fill-stone-300/40 dark:fill-stone-600/30 stroke-stone-400/30" strokeWidth="0.2" />
-            ))}
-
-            {/* ===== RIGHT: Church ===== */}
-            <rect x="114" y="40" width="32" height="24" rx="2" className="fill-amber-50 dark:fill-amber-900/20 stroke-gold/40" strokeWidth="0.6" />
-            {/* Cross on church */}
-            <line x1="130" y1="34" x2="130" y2="40" className="stroke-gold/60" strokeWidth="0.6" />
-            <line x1="127.5" y1="36.5" x2="132.5" y2="36.5" className="stroke-gold/60" strokeWidth="0.6" />
-            {/* Dome */}
-            <path d="M124 40 Q130 32 136 40" fill="none" className="stroke-gold/50" strokeWidth="0.5" />
-            {/* Door */}
-            <rect x="128" y="58" width="4" height="6" rx="1" className="fill-gold/15 stroke-gold/30" strokeWidth="0.3" />
-            {/* Windows */}
-            {[118, 124, 136, 142].map((wx) => (
-              <rect key={wx} x={wx} y={47} width="2.5" height="2.5" rx="0.3" className="fill-gold/15 stroke-gold/25" strokeWidth="0.2" />
-            ))}
-
-            {/* ===== BOTTOM-LEFT: Basketball Court ===== */}
-            <rect x="5" y="65" width="28" height="14" rx="1.5" className="fill-orange-100 dark:fill-orange-900/30 stroke-orange-300 dark:stroke-orange-700" strokeWidth="0.5" />
-            <circle cx="19" cy="72" r="3.5" fill="none" className="stroke-orange-300 dark:stroke-orange-600" strokeWidth="0.4" />
-            <line x1="19" y1="65" x2="19" y2="79" className="stroke-orange-300 dark:stroke-orange-600" strokeWidth="0.3" strokeDasharray="1 1" />
-            <text x="19" y="63" textAnchor="middle" className="fill-orange-500/50 dark:fill-orange-400/40" fontSize="2.2">Basketball</text>
-
-            {/* ===== BOTTOM-LEFT: Soccer Field (below basketball) ===== */}
-            <rect x="5" y="81" width="28" height="13" rx="1.5" className="fill-emerald-100 dark:fill-emerald-900/30 stroke-emerald-400 dark:stroke-emerald-700" strokeWidth="0.5" />
-            <circle cx="19" cy="87.5" r="3" fill="none" className="stroke-emerald-400 dark:stroke-emerald-600" strokeWidth="0.4" />
-            <line x1="19" y1="81" x2="19" y2="94" className="stroke-emerald-400 dark:stroke-emerald-600" strokeWidth="0.3" strokeDasharray="1 1" />
-            {/* Goals */}
-            <rect x="5" y="84" width="2" height="7" rx="0.5" fill="none" className="stroke-emerald-500 dark:stroke-emerald-500" strokeWidth="0.4" />
-            <rect x="31" y="84" width="2" height="7" rx="0.5" fill="none" className="stroke-emerald-500 dark:stroke-emerald-500" strokeWidth="0.4" />
-            <text x="19" y="80" textAnchor="middle" className="fill-emerald-500/50 dark:fill-emerald-400/40" fontSize="2.2">Soccer</text>
-
-            {/* ===== BOTTOM: Large Parking Lot ===== */}
-            <rect x="40" y="82" width="55" height="12" rx="1" className="fill-stone-200/60 dark:fill-stone-700/30 stroke-stone-300 dark:stroke-stone-600" strokeWidth="0.3" />
-            {[44, 50, 56, 62, 68, 74, 80, 86].map((px) => (
-              <rect key={px} x={px} y={84} width="3.5" height="8" rx="0.5" className="fill-stone-300/40 dark:fill-stone-600/30 stroke-stone-400/30" strokeWidth="0.2" />
-            ))}
-            <rect x="100" y="82" width="50" height="12" rx="1" className="fill-stone-200/60 dark:fill-stone-700/30 stroke-stone-300 dark:stroke-stone-600" strokeWidth="0.3" />
-            {[104, 110, 116, 122, 128, 134, 140].map((px) => (
-              <rect key={`p2${px}`} x={px} y={84} width="3.5" height="8" rx="0.5" className="fill-stone-300/40 dark:fill-stone-600/30 stroke-stone-400/30" strokeWidth="0.2" />
-            ))}
-            <text x="92" y="80" textAnchor="middle" className="fill-stone-400 dark:fill-stone-500" fontSize="2.5">Parking</text>
-
-            {/* Trees scattered */}
-            {[
-              [40, 12], [85, 15], [88, 50], [82, 70], [38, 72],
-              [140, 72], [150, 45], [90, 30], [78, 60],
-            ].map(([tx, ty], i) => (
-              <g key={i}>
-                <circle cx={tx} cy={ty} r="3" className="fill-emerald-300/25 dark:fill-emerald-600/15" />
-                <circle cx={tx} cy={(ty as number) - 1} r="2" className="fill-emerald-400/20 dark:fill-emerald-500/15" />
-              </g>
-            ))}
-          </svg>
-
-          {/* Clickable Pins */}
-          {campusLocations.map((loc) => {
-            const Icon = categoryIcons[loc.category];
-            return (
-              <button
-                key={loc.id}
-                onClick={() => setSelected(selected?.id === loc.id ? null : loc)}
-                className={cn(
-                  "absolute z-10 flex h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full shadow-md transition-transform hover:scale-125",
-                  categoryColors[loc.category],
-                  selected?.id === loc.id && "scale-125 ring-2 ring-white ring-offset-2 ring-offset-background"
-                )}
-                style={{ left: `${loc.x}%`, top: `${loc.y}%` }}
-                aria-label={loc.name}
-              >
-                <Icon size={14} />
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Info Panel */}
-        <AnimatePresence>
-          {selected && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
-              className="mt-4"
-            >
-              <GlassCard className="flex items-start gap-4">
-                <div className={cn("flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full", categoryColors[selected.category])}>
-                  {(() => { const Icon = categoryIcons[selected.category]; return <Icon size={18} />; })()}
-                </div>
-                <div className="flex-1">
-                  <h4 className="font-semibold">{selected.name}</h4>
-                  <p className="mt-1 text-sm text-muted-foreground">{selected.description}</p>
-                </div>
-                <button
-                  onClick={() => setSelected(null)}
-                  className="rounded-full p-1 text-muted-foreground hover:text-foreground"
-                  aria-label="Close info"
-                >
-                  <X size={18} />
-                </button>
-              </GlassCard>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Legend */}
-        <div className="mt-6 flex flex-wrap justify-center gap-4">
-          {Object.entries(categoryIcons).map(([key, Icon]) => (
-            <div key={key} className="flex items-center gap-2 text-sm text-muted-foreground">
-              <div className={cn("flex h-5 w-5 items-center justify-center rounded-full", categoryColors[key as keyof typeof categoryColors])}>
-                <Icon size={10} />
-              </div>
-              <span>{categoryLabels[key as keyof typeof categoryLabels]}</span>
-            </div>
+      <div className="-mx-4 overflow-x-auto px-4 pb-4">
+        <div
+          className="flex min-w-max gap-5"
+          style={{ perspective: "1600px" }}
+        >
+          {buildings.map((b) => (
+            <FlipCard key={b.id} building={b} />
           ))}
         </div>
       </div>
     </SectionWrapper>
+  );
+}
+
+function FlipCard({ building }: { building: Building }) {
+  const [flipped, setFlipped] = useState(false);
+  const photoUrl = streetViewUrl(building);
+
+  return (
+    <motion.div
+      className="relative h-[420px] w-[280px] flex-shrink-0 cursor-pointer"
+      style={{ transformStyle: "preserve-3d" }}
+      whileHover={{ y: -6 }}
+      transition={{ type: "spring", stiffness: 300, damping: 25 }}
+      onClick={() => setFlipped((f) => !f)}
+    >
+      <motion.div
+        animate={{ rotateY: flipped ? 180 : 0 }}
+        transition={{ type: "spring", stiffness: 110, damping: 22 }}
+        className="relative h-full w-full"
+        style={{ transformStyle: "preserve-3d" }}
+      >
+        {/* Front */}
+        <div
+          className="absolute inset-0 overflow-hidden rounded-3xl border border-border bg-card shadow-xl"
+          style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
+        >
+          <div className="relative h-[55%] w-full overflow-hidden bg-muted">
+            {photoUrl ? (
+              <Image
+                src={photoUrl}
+                alt={building.name}
+                fill
+                sizes="280px"
+                className="object-cover"
+                unoptimized
+              />
+            ) : (
+              <div className="flex h-full items-center justify-center text-center text-xs text-muted-foreground">
+                Add NEXT_PUBLIC_GOOGLE_MAPS_KEY
+              </div>
+            )}
+            <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+            <div className="absolute inset-x-4 bottom-4">
+              <p
+                className="mb-0.5 text-[10px] font-semibold uppercase tracking-[0.15em]"
+                style={{ color: building.accentColor }}
+              >
+                {building.category}
+              </p>
+              <h3 className="font-serif text-xl leading-tight text-white">
+                {building.name}
+              </h3>
+            </div>
+          </div>
+          <div className="flex h-[45%] flex-col justify-between p-4">
+            <p className="line-clamp-3 text-sm leading-relaxed text-muted-foreground">
+              {building.description}
+            </p>
+            <div className="flex items-center gap-1.5 text-[11px] uppercase tracking-wider text-muted-foreground">
+              <RotateCw size={12} />
+              Tap to flip
+            </div>
+          </div>
+        </div>
+
+        {/* Back */}
+        <div
+          className="absolute inset-0 overflow-hidden rounded-3xl border border-border shadow-xl"
+          style={{
+            backfaceVisibility: "hidden",
+            WebkitBackfaceVisibility: "hidden",
+            transform: "rotateY(180deg)",
+            background: `linear-gradient(135deg, ${building.accentColor}26, ${building.accentColor}05 60%, transparent)`,
+          }}
+        >
+          <div className="flex h-full flex-col p-5">
+            <p
+              className="mb-1 text-[10px] font-semibold uppercase tracking-[0.15em]"
+              style={{ color: building.accentColor }}
+            >
+              {building.category}
+            </p>
+            <h3 className="mb-4 font-serif text-xl leading-tight">
+              {building.name}
+            </h3>
+            <p className="mb-5 text-sm leading-relaxed text-muted-foreground">
+              {building.description}
+            </p>
+            <ul className="space-y-2 text-sm">
+              {building.highlights.map((h, i) => (
+                <li key={i} className="flex items-start gap-2.5">
+                  <span
+                    className="mt-1.5 inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full"
+                    style={{ backgroundColor: building.accentColor }}
+                  />
+                  <span>{h}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-auto flex items-center gap-1.5 text-[11px] uppercase tracking-wider text-muted-foreground">
+              <RotateCw size={12} />
+              Tap to flip back
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
   );
 }

@@ -60,49 +60,65 @@ export function Gala() {
         {/* Schedule */}
         <div>
           <h3 className="mb-6 text-2xl font-serif">Evening Schedule</h3>
-          <div className="space-y-0">
-            {schedule.map((item, i) => (
-              <motion.div
-                key={item.time}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.05 }}
-                className="flex gap-4 border-l-2 border-violet/20 py-4 pl-6 last:border-l-violet"
-              >
-                <span className="flex-shrink-0 text-sm font-medium text-violet">{item.time}</span>
-                <div>
-                  <p className="font-semibold">{item.title}</p>
-                  <p className="text-sm text-muted-foreground">{item.description}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          {schedule.length === 0 ? (
+            <GlassCard className="flex items-center justify-center py-12">
+              <p className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
+                To Be Announced
+              </p>
+            </GlassCard>
+          ) : (
+            <div className="space-y-0">
+              {schedule.map((item, i) => (
+                <motion.div
+                  key={item.time}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.05 }}
+                  className="flex gap-4 border-l-2 border-violet/20 py-4 pl-6 last:border-l-violet"
+                >
+                  <span className="flex-shrink-0 text-sm font-medium text-violet">{item.time}</span>
+                  <div>
+                    <p className="font-semibold">{item.title}</p>
+                    <p className="text-sm text-muted-foreground">{item.description}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Speakers */}
         <div>
           <h3 className="mb-6 text-2xl font-serif">Featured Speakers</h3>
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="grid gap-4 sm:grid-cols-2"
-          >
-            {speakers.map((speaker) => (
-              <motion.div key={speaker.name} variants={fadeInUp}>
-                <GlassCard className="h-full">
-                  <div className="mb-3 h-12 w-12 rounded-full bg-violet/10 flex items-center justify-center text-violet font-bold font-serif">
-                    {speaker.name.split(" ").pop()?.[0]}
-                  </div>
-                  <h4 className="font-semibold">{speaker.name}</h4>
-                  <p className="text-sm text-violet">{speaker.title}</p>
-                  <Badge variant="muted" className="mt-3">{speaker.topic}</Badge>
-                </GlassCard>
-              </motion.div>
-            ))}
-          </motion.div>
+          {speakers.length === 0 ? (
+            <GlassCard className="flex items-center justify-center py-12">
+              <p className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
+                To Be Announced
+              </p>
+            </GlassCard>
+          ) : (
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="grid gap-4 sm:grid-cols-2"
+            >
+              {speakers.map((speaker) => (
+                <motion.div key={speaker.name} variants={fadeInUp}>
+                  <GlassCard className="h-full">
+                    <div className="mb-3 h-12 w-12 rounded-full bg-violet/10 flex items-center justify-center text-violet font-bold font-serif">
+                      {speaker.name.split(" ").pop()?.[0]}
+                    </div>
+                    <h4 className="font-semibold">{speaker.name}</h4>
+                    <p className="text-sm text-violet">{speaker.title}</p>
+                    <Badge variant="muted" className="mt-3">{speaker.topic}</Badge>
+                  </GlassCard>
+                </motion.div>
+              ))}
+            </motion.div>
+          )}
         </div>
       </div>
 

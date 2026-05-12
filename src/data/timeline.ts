@@ -7,8 +7,8 @@ export interface TimelineEvent {
 }
 
 export const timelineEvents: TimelineEvent[] = [
-  { year: 1986, title: "AGM Founded", description: "Established as a pioneering institution dedicated to advancing knowledge and innovation.", decade: "1980s", highlight: true },
-  { year: 1988, title: "First Graduating Class", description: "32 students received their diplomas in a ceremony that set the tone for decades of excellence.", decade: "1980s" },
+  { year: 1986, title: "AGM Founded", description: "Founded in 1986 through the generous donation of the Minassian Family, AGM was established next to the Forty Martyrs Armenian Apostolic Church — committed to academic achievement, personal growth, and community.", decade: "1980s", highlight: true },
+  { year: 1991, title: "Class Of 1991", description: "AGM's first graduating class — 6 graduates received their diplomas, setting the tone for decades of excellence to follow.", decade: "1990s" },
   { year: 1990, title: "Research Center Opens", description: "The state-of-the-art research center opened its doors, catalyzing groundbreaking work.", decade: "1990s" },
   { year: 1993, title: "International Exchange Program", description: "Partnerships with 12 universities worldwide launched our global academic network.", decade: "1990s" },
   { year: 1995, title: "Library Expansion", description: "The Harutyunyan Library doubled in size, becoming the region's largest academic collection.", decade: "1990s" },

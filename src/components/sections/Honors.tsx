@@ -7,9 +7,9 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { stats, notableAlumni, achievements } from "@/data/honors";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
-import { Award, Users, Globe, BookOpen } from "lucide-react";
+import { Award, Users, GraduationCap, BookOpen, UserCheck } from "lucide-react";
 
-const statIcons = [Award, Users, Globe, BookOpen];
+const statIcons = [Award, Users, GraduationCap, BookOpen, UserCheck];
 
 function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
   const [count, setCount] = useState(0);
@@ -56,7 +56,7 @@ export function Honors() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="grid grid-cols-2 gap-6 md:grid-cols-4"
+        className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-5"
       >
         {stats.map((stat, i) => {
           const Icon = statIcons[i];

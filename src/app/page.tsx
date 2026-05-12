@@ -8,6 +8,7 @@ import { Timeline } from "@/components/sections/Timeline";
 import { Honors } from "@/components/sections/Honors";
 import { Gallery } from "@/components/sections/Gallery";
 import { Gala } from "@/components/sections/Gala";
+import { Events } from "@/components/sections/Events";
 import { CampusMap } from "@/components/sections/CampusMap";
 import { Shop } from "@/components/sections/Shop";
 import { Future } from "@/components/sections/Future";
@@ -23,6 +24,7 @@ export default function Home() {
         <Honors />
         <Gallery />
         <Gala />
+        <Events />
         <CampusMap />
         <Shop />
         <Future />

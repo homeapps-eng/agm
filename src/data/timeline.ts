@@ -1,4 +1,5 @@
 export interface TimelineEvent {
+  id?: string;
   year: number;
   title: string;
   description: string;
@@ -9,8 +10,8 @@ export interface TimelineEvent {
 export const timelineEvents: TimelineEvent[] = [
   { year: 1986, title: "AGM Founded", description: "Founded in 1986 through the generous donation of the Minassian Family, AGM was established next to the Forty Martyrs Armenian Apostolic Church — committed to academic achievement, personal growth, and community.", decade: "1980s", highlight: true },
   { year: 1991, title: "Class Of 1991", description: "AGM's first graduating class — 6 graduates received their diplomas, setting the tone for decades of excellence to follow.", decade: "1990s" },
-  { year: 1994, title: "School Opens Computer, Science Lab", description: "December 3, 1994 — A memorable milestone for AGM School with the inauguration of its new computer and science laboratory, bringing technology, innovation, and new learning opportunities to future generations of students. Proud to reflect on moments that contributed to education, growth, and the Armenian community.", decade: "1990s" },
-  { year: 1994, title: "Visit of His Holiness Karekin II", description: "On September 15, 1994, His Holiness Karekin II met with students from Ari G. Minassian Armenian School, together with students from several other Armenian schools in the Los Angeles area during a special visit celebrating Armenian faith, culture, and education.", decade: "1990s" },
+  { id: "1994-1", year: 1994, title: "Visit of His Holiness Karekin II", description: "On January 15, 1994, His Holiness Karekin II met with students from Ari G. Minassian Armenian School, together with students from several other Armenian schools in the Los Angeles area during a special visit celebrating Armenian faith, culture, and education.", decade: "1990s" },
+  { id: "1994-2", year: 1994, title: "School Opens Computer, Science Lab", description: "December 3, 1994 — A memorable milestone for AGM School with the inauguration of its new computer and science laboratory, bringing technology, innovation, and new learning opportunities to future generations of students. Proud to reflect on moments that contributed to education, growth, and the Armenian community.", decade: "1990s" },
   { year: 1996, title: "A Remarkable 10-Year Anniversary", description: "1986–1996 — Ten years of dedication, faith, and growth. Under the guidance of Principal Vahram Shemmassian, AGM celebrated a decade of nurturing young minds, strengthening Armenian identity, and building a community where students, families, and teachers came together as one. A heartfelt milestone honoring everyone whose love and devotion made these ten years possible.", decade: "1990s", highlight: true },
   { year: 1998, title: "Milestone To Be Added", description: "Details to be provided.", decade: "1990s" },
   { year: 2001, title: "Milestone To Be Added", description: "Details to be provided.", decade: "2000s" },
@@ -24,6 +25,5 @@ export const timelineEvents: TimelineEvent[] = [
   { year: 2018, title: "Facility Expansion & Modernization", description: "With generous support from the Forty Martyrs Armenian Church Board of Trustees and Pastor, AGM added new Pre-K and kindergarten classrooms, upgraded administration spaces, and improved campus facilities and security — reflecting strong community growth and a continued commitment to a better learning environment for students.", decade: "2010s" },
   { year: 2020, title: "Daring to Dream", description: "The year 2020 was a defining milestone for AGM Armenian School, marked by the theme \"Daring to Dream.\" Despite the global pandemic and major challenges, the school continued its mission with resilience, unity, and dedication, ensuring students received a strong and meaningful education.", decade: "2020s" },
   { year: 2022, title: "Milestone To Be Added", description: "Details to be provided.", decade: "2020s" },
-  { year: 2024, title: "Milestone To Be Added", description: "Details to be provided.", decade: "2020s", highlight: true },
-  { year: 2026, title: "Milestone To Be Added", description: "Details to be provided.", decade: "2020s", highlight: true },
+  { year: 2026, title: "Expanding Our Vision", description: "The year 2026 marks a defining milestone for AGM Armenian School — the celebration of its 40th anniversary. AGM proudly reached a historic moment with the acquisition of new properties for our growing campus, made possible through the generosity and donations of our community. What once was just a vision is now a reality, as we continue building a brighter future for generations to come.", decade: "2020s", highlight: true },
 ];

@@ -40,7 +40,7 @@ export function Timeline() {
           <div className="relative border-l-2 border-violet/30 pl-8">
             {timelineEvents.map((event, i) => (
               <motion.div
-                key={event.year}
+                key={event.id ?? event.year}
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -63,7 +63,7 @@ export function Timeline() {
           <div className="hide-scrollbar flex gap-8 overflow-x-auto px-8 pb-8 pt-16 snap-x snap-mandatory">
             {timelineEvents.map((event, i) => (
               <motion.div
-                key={event.year}
+                key={event.id ?? event.year}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}

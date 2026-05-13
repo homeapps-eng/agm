@@ -18,6 +18,8 @@ export const visionCards: VisionCard[] = [
 ];
 
 export const quotes: Quote[] = [
+  { text: "Train up a child in the way he should go, and when he is old, he will not depart from it.", author: "Vahram Shemmasin", role: "Principal, 1995" },
+  { text: "AGM is home away from home.", author: "PTO", role: "1999" },
   { text: "AGM gave me not just knowledge, but the courage to reimagine what's possible.", author: "Dr. Ani Sargsyan", role: "Class of 1994" },
   { text: "The friendships and mentorship I found here shaped every success that followed.", author: "Armen Gevorgyan", role: "Class of 1998" },
   { text: "This institution proves that a commitment to excellence transcends borders.", author: "Dr. Maria Chen", role: "Visiting Scholar" },

@@ -5,6 +5,7 @@ export interface GalleryImage {
   category: string;
   width: number;
   height: number;
+  instagramPostUrl?: string;
 }
 
 export const galleryCategories = ["All", "Campus", "Events", "People", "Research"] as const;
@@ -24,4 +25,5 @@ export const galleryImages: GalleryImage[] = [
   { id: 11, src: "/gallery/people-3.jpg", alt: "Alumni reunion 2023", category: "People", width: 600, height: 800 },
   { id: 12, src: "/gallery/research-3.jpg", alt: "Biotech lab breakthrough", category: "Research", width: 800, height: 600 },
   { id: 13, src: "/gallery/people-4.jpg", alt: "Special Guest", category: "People", width: 1000, height: 800 },
+  { id: 14, src: "", alt: "Soaring Stories", category: "People", width: 600, height: 800, instagramPostUrl: "https://www.instagram.com/reel/DTyHurbkrxs/" },
 ];

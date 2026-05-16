@@ -8,7 +8,7 @@ import { Tabs } from "@/components/ui/Tabs";
 import { Modal } from "@/components/ui/Modal";
 import { galleryImages, galleryCategories, type GalleryCategory } from "@/data/gallery";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, toInstagramEmbed } from "@/lib/utils";
 
 export function Gallery() {
   const [activeTab, setActiveTab] = useState<string>("All");
@@ -55,23 +55,41 @@ export function Gallery() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.4 }}
-              className="mb-4 break-inside-avoid cursor-pointer overflow-hidden rounded-xl"
-              onClick={() => setSelectedIndex(i)}
+              className={cn(
+                "mb-4 break-inside-avoid overflow-hidden rounded-xl",
+                !img.instagramPostUrl && "cursor-pointer"
+              )}
+              onClick={() => !img.instagramPostUrl && setSelectedIndex(i)}
             >
-              <div
-                className={cn(
-                  "relative bg-muted transition-transform duration-300 hover:scale-[1.02]",
-                )}
-                style={{ aspectRatio: `${img.width}/${img.height}` }}
-              >
-                <img
-                  src={img.src}
-                  alt={img.alt}
-                  className="absolute inset-0 h-full w-full object-cover"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 transition-opacity duration-300 hover:opacity-100" />
-              </div>
+              {img.instagramPostUrl ? (
+                <div
+                  className="relative w-full bg-muted"
+                  style={{ aspectRatio: "1 / 1.25" }}
+                >
+                  <iframe
+                    src={toInstagramEmbed(img.instagramPostUrl)}
+                    title={img.alt}
+                    className="absolute inset-0 h-full w-full"
+                    frameBorder={0}
+                    scrolling="no"
+                    allow="encrypted-media"
+                    loading="lazy"
+                  />
+                </div>
+              ) : (
+                <div
+                  className="relative bg-muted transition-transform duration-300 hover:scale-[1.02]"
+                  style={{ aspectRatio: `${img.width}/${img.height}` }}
+                >
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    className="absolute inset-0 h-full w-full object-cover"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 transition-opacity duration-300 hover:opacity-100" />
+                </div>
+              )}
             </motion.div>
           ))}
         </AnimatePresence>

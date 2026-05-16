@@ -8,6 +8,7 @@ export interface Building {
   lng: number;
   heading: number;
   accentColor: string;
+  imageUrl?: string;
 }
 
 export const buildings: Building[] = [
@@ -26,6 +27,7 @@ export const buildings: Building[] = [
     lng: -117.938866,
     heading: 0,
     accentColor: "#fbbf24",
+    imageUrl: "/campus/church.jpg",
   },
   {
     id: "agm-school",
@@ -38,6 +40,7 @@ export const buildings: Building[] = [
     lng: -117.9383,
     heading: 0,
     accentColor: "#8b5cf6",
+    imageUrl: "/campus/agm-school.jpg",
   },
   {
     id: "gugasian-hall",
@@ -50,6 +53,7 @@ export const buildings: Building[] = [
     lng: -117.938418,
     heading: 0,
     accentColor: "#10b981",
+    imageUrl: "/campus/gugasian-hall.jpg",
   },
   {
     id: "barsamian-center",
@@ -62,6 +66,7 @@ export const buildings: Building[] = [
     lng: -117.937998,
     heading: 0,
     accentColor: "#f43f5e",
+    imageUrl: "/campus/barsamian-center.jpg",
   },
   {
     id: "preschool",
@@ -74,6 +79,7 @@ export const buildings: Building[] = [
     lng: -117.9387,
     heading: 0,
     accentColor: "#0ea5e9",
+    imageUrl: "/campus/preschool.jpg",
   },
   {
     id: "sports",
@@ -86,5 +92,6 @@ export const buildings: Building[] = [
     lng: -117.9387,
     heading: 0,
     accentColor: "#f97316",
+    imageUrl: "/campus/sports.jpg",
   },
 ];

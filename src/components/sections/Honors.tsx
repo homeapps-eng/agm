@@ -82,19 +82,23 @@ export function Honors() {
           viewport={{ once: true }}
           className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {notableAlumni.map((alum) => (
-            <motion.div key={alum.name} variants={fadeInUp}>
+          {notableAlumni.map((alum, i) => (
+            <motion.div key={i} variants={fadeInUp}>
               <GlassCard className="h-full">
                 <div className="flex items-start justify-between">
                   <div>
                     <h4 className="font-semibold">{alum.name}</h4>
-                    <p className="text-sm text-violet">{alum.role}</p>
+                    {alum.role && <p className="text-sm text-violet">{alum.role}</p>}
                   </div>
-                  <span className="rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground">
-                    &apos;{String(alum.year).slice(-2)}
-                  </span>
+                  {alum.year > 0 && (
+                    <span className="rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground">
+                      &apos;{String(alum.year).slice(-2)}
+                    </span>
+                  )}
                 </div>
-                <p className="mt-3 text-sm text-muted-foreground">{alum.achievement}</p>
+                {alum.achievement && (
+                  <p className="mt-3 text-sm text-muted-foreground">{alum.achievement}</p>
+                )}
               </GlassCard>
             </motion.div>
           ))}
@@ -103,7 +107,7 @@ export function Honors() {
 
       {/* Achievement Ticker */}
       <div className="mt-16 overflow-hidden">
-        <div className="flex animate-[scroll_30s_linear_infinite] gap-6">
+        <div className="flex w-max animate-[ticker_40s_linear_infinite] gap-6 pr-6">
           {[...achievements, ...achievements].map((a, i) => (
             <div
               key={i}
@@ -118,7 +122,7 @@ export function Honors() {
       </div>
 
       <style jsx>{`
-        @keyframes scroll {
+        @keyframes ticker {
           0% { transform: translateX(0); }
           100% { transform: translateX(-50%); }
         }

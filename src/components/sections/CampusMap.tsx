@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { buildings, type Building } from "@/data/buildings";
@@ -40,7 +39,10 @@ export function CampusMap() {
 
 function FlipCard({ building }: { building: Building }) {
   const [flipped, setFlipped] = useState(false);
-  const photoUrl = streetViewUrl(building);
+  const [imgFailed, setImgFailed] = useState(false);
+  const fallback = streetViewUrl(building);
+  const photoUrl =
+    building.imageUrl && !imgFailed ? building.imageUrl : fallback;
 
   return (
     <motion.div
@@ -63,17 +65,16 @@ function FlipCard({ building }: { building: Building }) {
         >
           <div className="relative h-[55%] w-full overflow-hidden bg-muted">
             {photoUrl ? (
-              <Image
+              <img
                 src={photoUrl}
                 alt={building.name}
-                fill
-                sizes="280px"
-                className="object-cover"
-                unoptimized
+                className="absolute inset-0 h-full w-full object-cover"
+                loading="lazy"
+                onError={() => setImgFailed(true)}
               />
             ) : (
-              <div className="flex h-full items-center justify-center text-center text-xs text-muted-foreground">
-                Add NEXT_PUBLIC_GOOGLE_MAPS_KEY
+              <div className="flex h-full items-center justify-center px-3 text-center text-xs text-muted-foreground">
+                Drop a photo at public{building.imageUrl}
               </div>
             )}
             <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />

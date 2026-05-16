@@ -24,7 +24,6 @@ export function Footer() {
                 { label: "Gallery", href: "#gallery" },
                 { label: "Gala", href: "#gala" },
                 { label: "Events", href: "#events" },
-                { label: "Shop", href: "#shop" },
                 { label: "AGM School", href: "https://www.agmschool.org/", external: true },
               ].map((link) => (
                 <a

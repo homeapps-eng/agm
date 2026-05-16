@@ -56,12 +56,47 @@ export function Events() {
         >
           {sorted.map((event) => (
             <motion.div key={event.id} variants={fadeInUp}>
-              <EventCard event={event} />
+              {event.instagramPostUrl ? (
+                <InstagramEmbedCard event={event} />
+              ) : (
+                <EventCard event={event} />
+              )}
             </motion.div>
           ))}
         </motion.div>
       )}
     </SectionWrapper>
+  );
+}
+
+function InstagramEmbedCard({ event }: { event: AGMEvent }) {
+  const embedSrc = event.instagramPostUrl?.replace(/\/?$/, "/") + "embed";
+  return (
+    <GlassCard className="flex h-full flex-col overflow-hidden p-0">
+      <div className="relative w-full" style={{ aspectRatio: "1 / 1.25" }}>
+        <iframe
+          src={embedSrc}
+          title={event.title}
+          className="absolute inset-0 h-full w-full"
+          frameBorder={0}
+          scrolling="no"
+          allow="encrypted-media"
+          loading="lazy"
+        />
+      </div>
+      {event.instagramUrl && (
+        <a
+          href={event.instagramUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center gap-1.5 border-t border-border bg-card/60 py-3 text-sm font-medium transition-colors hover:text-violet"
+        >
+          <Instagram size={14} />
+          View on Instagram
+          <ArrowUpRight size={14} />
+        </a>
+      )}
+    </GlassCard>
   );
 }
 

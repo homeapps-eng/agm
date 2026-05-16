@@ -1,20 +1,51 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { timelineEvents } from "@/data/timeline";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Badge } from "@/components/ui/Badge";
 import { cn } from "@/lib/utils";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export function Timeline() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
   });
   const lineWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+
+  const updateScrollState = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 4);
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+  }, []);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    updateScrollState();
+    el.addEventListener("scroll", updateScrollState, { passive: true });
+    window.addEventListener("resize", updateScrollState);
+    return () => {
+      el.removeEventListener("scroll", updateScrollState);
+      window.removeEventListener("resize", updateScrollState);
+    };
+  }, [updateScrollState]);
+
+  const scrollByCard = (dir: 1 | -1) => {
+    const el = scrollRef.current;
+    if (!el) return;
+    // Card width (w-72 = 288px) + gap-8 (32px)
+    el.scrollBy({ left: dir * 320, behavior: "smooth" });
+  };
 
   return (
     <SectionWrapper id="timeline" fullWidth className="overflow-hidden px-0">
@@ -59,8 +90,11 @@ export function Timeline() {
         </div>
 
         {/* Desktop: horizontal scroll */}
-        <div className="hidden md:block">
-          <div className="hide-scrollbar flex gap-8 overflow-x-auto px-8 pb-8 pt-16 snap-x snap-mandatory">
+        <div className="relative hidden md:block">
+          <div
+            ref={scrollRef}
+            className="hide-scrollbar flex gap-8 overflow-x-auto px-8 pb-8 pt-16 snap-x snap-mandatory"
+          >
             {timelineEvents.map((event, i) => (
               <motion.div
                 key={event.id ?? event.year}
@@ -85,6 +119,30 @@ export function Timeline() {
               </motion.div>
             ))}
           </div>
+
+          <button
+            type="button"
+            onClick={() => scrollByCard(-1)}
+            aria-label="Scroll timeline left"
+            className={cn(
+              "absolute left-4 top-1/2 z-10 -translate-y-1/2 rounded-full border border-border bg-background/80 p-2.5 text-foreground shadow-sm backdrop-blur-sm transition-all duration-200 hover:border-violet hover:text-violet",
+              !canScrollLeft && "pointer-events-none opacity-0"
+            )}
+          >
+            <ChevronLeft size={18} />
+          </button>
+
+          <button
+            type="button"
+            onClick={() => scrollByCard(1)}
+            aria-label="Scroll timeline right"
+            className={cn(
+              "absolute right-4 top-1/2 z-10 -translate-y-1/2 rounded-full border border-border bg-background/80 p-2.5 text-foreground shadow-sm backdrop-blur-sm transition-all duration-200 hover:border-violet hover:text-violet",
+              !canScrollRight && "pointer-events-none opacity-0"
+            )}
+          >
+            <ChevronRight size={18} />
+          </button>
         </div>
       </div>
     </SectionWrapper>

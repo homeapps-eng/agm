@@ -1,19 +1,30 @@
 "use client";
 
-import { useRef, useState, useEffect, useCallback } from "react";
+import { useRef, useState, useEffect, useCallback, useMemo } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { timelineEvents } from "@/data/timeline";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Badge } from "@/components/ui/Badge";
+import { Tabs } from "@/components/ui/Tabs";
 import { cn } from "@/lib/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+
+const decades = Array.from(
+  new Set(timelineEvents.map((e) => e.decade))
+);
 
 export function Timeline() {
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [activeDecade, setActiveDecade] = useState<string>(decades[0]);
+
+  const mobileEvents = useMemo(
+    () => timelineEvents.filter((e) => e.decade === activeDecade),
+    [activeDecade]
+  );
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -66,15 +77,20 @@ export function Timeline() {
           />
         </div>
 
-        {/* Mobile: vertical timeline */}
+        {/* Mobile: decade-tabbed vertical timeline */}
         <div className="mx-auto max-w-2xl px-4 md:hidden">
+          <Tabs
+            tabs={decades}
+            activeTab={activeDecade}
+            onTabChange={setActiveDecade}
+            className="mb-8 justify-center"
+          />
           <div className="relative border-l-2 border-violet/30 pl-8">
-            {timelineEvents.map((event, i) => (
+            {mobileEvents.map((event, i) => (
               <motion.div
                 key={event.id ?? event.year}
                 initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
+                animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.05 }}
                 className="relative mb-10 last:mb-0"
               >

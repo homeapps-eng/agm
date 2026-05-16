@@ -7,6 +7,7 @@ import { GlassCard } from "@/components/ui/GlassCard";
 import { Badge } from "@/components/ui/Badge";
 import { events, type AGMEvent } from "@/data/events";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
+import { toInstagramEmbed } from "@/lib/utils";
 import { Calendar, Clock, MapPin, Instagram, ArrowUpRight } from "lucide-react";
 
 function formatDate(iso: string) {
@@ -70,7 +71,7 @@ export function Events() {
 }
 
 function InstagramEmbedCard({ event }: { event: AGMEvent }) {
-  const embedSrc = event.instagramPostUrl?.replace(/\/?$/, "/") + "embed";
+  const embedSrc = event.instagramPostUrl ? toInstagramEmbed(event.instagramPostUrl) : "";
   return (
     <GlassCard className="flex h-full flex-col overflow-hidden p-0">
       <div className="relative w-full" style={{ aspectRatio: "1 / 1.25" }}>

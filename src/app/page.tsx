@@ -26,7 +26,7 @@ export default function Home() {
         <Gala />
         <Events />
         <CampusMap />
-        <Shop />
+        {/* <Shop /> */}
         <Future />
         <Community />
       </main>

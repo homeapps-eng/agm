@@ -9,13 +9,13 @@ import { Button } from "@/components/ui/Button";
 
 const navLinks = [
   { label: "Timeline", href: "#timeline" },
-  { label: "Honors", href: "#honors" },
   { label: "Gallery", href: "#gallery" },
   { label: "Gala", href: "#gala" },
   { label: "Events", href: "#events" },
+  { label: "Community", href: "#community" },
+  { label: "Honors", href: "#honors" },
   { label: "Campus", href: "#campus" },
   { label: "Future", href: "#future" },
-  { label: "Community", href: "#community" },
 ];
 
 export function Header() {

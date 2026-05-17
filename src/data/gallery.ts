@@ -24,4 +24,5 @@ export const galleryImages: GalleryImage[] = [
   { id: 7, src: "/gallery/people-2.jpg", alt: "Faculty award ceremony", category: "People", width: 600, height: 800, instagramPostUrl: "https://www.instagram.com/p/DVaEyCAj22K/" },
   { id: 8, src: "/gallery/research-2.jpg", alt: "Achievement Trophy", category: "Research", width: 600, height: 800, instagramPostUrl: "https://www.instagram.com/p/DVZ8feKkVgz/?img_index=1" },
   { id: 10, src: "/gallery/event-3.jpg", alt: "AGM coverage", category: "Events", width: 600, height: 800, instagramPostUrl: "https://www.instagram.com/p/DW7lw10iTpb/" },
+  { id: 15, src: "", alt: "Soaring Stories", category: "People", width: 600, height: 800, instagramPostUrl: "https://www.instagram.com/reel/DTyHurbkrxs/" },
 ];

@@ -21,14 +21,14 @@ export default function Home() {
       <main>
         <Hero />
         <Timeline />
-        <Honors />
         <Gallery />
         <Gala />
         <Events />
-        <CampusMap />
         {/* <Shop /> */}
-        <Future />
         <Community />
+        <Honors />
+        <CampusMap />
+        <Future />
       </main>
       <Footer />
     </ToastProvider>

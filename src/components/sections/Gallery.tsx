@@ -31,7 +31,7 @@ export function Gallery() {
     <SectionWrapper id="gallery">
       <SectionHeading
         badge="Memories"
-        title="Photo Gallery"
+        title="Gallery"
         subtitle="A visual journey through four decades of campus life."
       />
 

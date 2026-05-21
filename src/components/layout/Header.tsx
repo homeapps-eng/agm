@@ -12,7 +12,7 @@ const navLinks = [
   { label: "Gallery", href: "#gallery" },
   { label: "Gala", href: "#gala" },
   { label: "Events", href: "#events" },
-  { label: "Community", href: "#community" },
+  { label: "Sponsorship", href: "#community" },
   { label: "Honors", href: "#honors" },
   { label: "Campus", href: "#campus" },
   { label: "Future", href: "#future" },

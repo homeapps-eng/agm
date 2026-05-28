@@ -20,9 +20,7 @@ export const visionCards: VisionCard[] = [
 export const quotes: Quote[] = [
   { text: "Train up a child in the way he should go, and when he is old, he will not depart from it.", author: "Vahram Shemmasin", role: "Principal, 1995" },
   { text: "AGM is home away from home.", author: "PTO", role: "1999" },
-  { text: "AGM gave me not just knowledge, but the courage to reimagine what's possible.", author: "Dr. Ani Sargsyan", role: "Class of 1994" },
-  { text: "The friendships and mentorship I found here shaped every success that followed.", author: "Armen Gevorgyan", role: "Class of 1998" },
-  { text: "This institution proves that a commitment to excellence transcends borders.", author: "Dr. Maria Chen", role: "Visiting Scholar" },
-  { text: "Forty years of impact — and the best is yet to come.", author: "Prof. David Abrahamyan", role: "AGM President" },
-  { text: "AGM taught me that innovation starts with asking the right questions.", author: "Nare Avagyan", role: "Class of 2016" },
+  { text: "Իմ նշանաբանս է կեանքի մեջ միշտ փորձել յաջողիլ", author: "Saro Baghjajian", role: "Class of 1993, Credit Card Consulting Vice President" },
+  { text: "Ես ազատ եմ ըլլալու Բարկացկոտ, թէեւ կ՚ըսեն Գործօն եմ երբ բան մը չսիրեմ Դժգոհ կ՚ըլլամ, որովհետեւ Եզակի եմ։ Ուրախ Զուարթ եմ, Էականը այդ չէ՞ միթէ։", author: "Vache A. Thomassian", role: "Class of 1996, Employment and Labor Lawyer" },
+  { text: "Anything worth doing is worth doing well", author: "Karine Codilian", role: "Class of 2012, UCLA Senior and AUF PR Committee Chair" },
 ];

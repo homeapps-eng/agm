@@ -43,6 +43,32 @@ export const buildings: Building[] = [
     imageUrl: "/campus/agm-school.jpg",
   },
   {
+    id: "campus-1",
+    name: "Campus 1",
+    category: "Education",
+    description:
+      "A newly acquired building expanding AGM's educational facilities with additional classrooms and learning spaces.",
+    highlights: ["Newly acquired", "Additional classrooms", "Expanded learning spaces"],
+    lat: 33.7389,
+    lng: -117.9382,
+    heading: 0,
+    accentColor: "#6366f1",
+    imageUrl: "/campus/campus-1.jpg",
+  },
+  {
+    id: "campus-2",
+    name: "Campus 2",
+    category: "Education",
+    description:
+      "A newly acquired building expanding AGM's educational facilities with additional classrooms and learning spaces.",
+    highlights: ["Newly acquired", "Additional classrooms", "Expanded learning spaces"],
+    lat: 33.7388,
+    lng: -117.9381,
+    heading: 0,
+    accentColor: "#14b8a6",
+    imageUrl: "/campus/campus-2.jpg",
+  },
+  {
     id: "gugasian-hall",
     name: "Gugasian Hall",
     category: "Events",
@@ -54,19 +80,6 @@ export const buildings: Building[] = [
     heading: 0,
     accentColor: "#10b981",
     imageUrl: "/campus/gugasian-hall.jpg",
-  },
-  {
-    id: "barsamian-center",
-    name: "Harut Barsamian Center",
-    category: "Cultural",
-    description:
-      "A cultural and community center supporting Armenian heritage programming, language preservation, and social gatherings.",
-    highlights: ["Heritage programs", "Language preservation", "Social events"],
-    lat: 33.73886,
-    lng: -117.937998,
-    heading: 0,
-    accentColor: "#f43f5e",
-    imageUrl: "/campus/barsamian-center.jpg",
   },
   {
     id: "preschool",

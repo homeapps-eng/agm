@@ -32,5 +32,4 @@ export const galleryImages: GalleryImage[] = [
   { id: 5, src: "/gallery/campus-2.jpg", alt: "Library interior", category: "Campus", width: 800, height: 600 },
   { id: 6, src: "/gallery/event-2.jpg", alt: "Annual science fair", category: "Events", width: 600, height: 800, instagramPostUrl: "https://www.instagram.com/p/DYQ4F0fEbgu/?img_index=8" },
   { id: 10, src: "/gallery/event-3.jpg", alt: "AGM coverage", category: "Events", width: 600, height: 800, instagramPostUrl: "https://www.instagram.com/p/DW7lw10iTpb/" },
-  { id: 15, src: "", alt: "Soaring Stories", category: "People", width: 600, height: 800, instagramPostUrl: "https://www.instagram.com/reel/DTyHurbkrxs/" },
 ];

@@ -93,6 +93,24 @@ h1, h2, h3, h4, h5, h6 {
               var(--background);
 }
 
+/* Gala seating: navy place-card with a soft gold spotlight — same in both themes */
+.bg-gala-table {
+  background: radial-gradient(ellipse at 50% 0%, rgba(212, 169, 78, 0.16) 0%, transparent 55%),
+              linear-gradient(165deg, #1B3A6B 0%, #0F2044 100%);
+}
+
+.dark .bg-gala-table {
+  background: radial-gradient(ellipse at 50% 0%, rgba(212, 169, 78, 0.14) 0%, transparent 55%),
+              linear-gradient(165deg, #172F58 0%, #0B1731 100%);
+}
+
+.text-gold-foil {
+  background: linear-gradient(180deg, #F3DDA6 0%, var(--gold-light) 45%, var(--gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }

@@ -3,25 +3,32 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "next-themes";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Sun, Moon, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
 
+const MotionLink = motion.create(Link);
+
+// Rooted at "/" so section links also work from other pages
 const navLinks = [
-  { label: "Timeline", href: "#timeline" },
-  { label: "Gallery", href: "#gallery" },
-  { label: "Gala", href: "#gala" },
-  { label: "Events", href: "#events" },
-  { label: "Sponsorship", href: "#community" },
-  { label: "Honors", href: "#honors" },
-  { label: "Campus", href: "#campus" },
-  { label: "Future", href: "#future" },
+  { label: "Timeline", href: "/#timeline" },
+  { label: "Gallery", href: "/#gallery" },
+  { label: "Gala", href: "/#gala" },
+  { label: "Seating", href: "/seating" },
+  { label: "Events", href: "/#events" },
+  { label: "Sponsorship", href: "/#community" },
+  { label: "Honors", href: "/#honors" },
+  { label: "Campus", href: "/#campus" },
+  { label: "Future", href: "/#future" },
 ];
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { theme, setTheme } = useTheme();
+  const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => setMounted(true), []);
@@ -52,20 +59,24 @@ export function Header() {
         )}
       >
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-          <a href="#hero" className="text-xl font-bold tracking-tight font-serif">
+          <Link href="/#hero" className="text-xl font-bold tracking-tight font-serif">
             <span className="text-violet">AGM</span>
             <span className="ml-1 text-sm font-sans font-normal text-muted-foreground">40</span>
-          </a>
+          </Link>
 
           <div className="hidden items-center gap-1 lg:flex">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
-                className="rounded-full px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+                aria-current={pathname === link.href ? "page" : undefined}
+                className={cn(
+                  "rounded-full px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
+                  pathname === link.href && "bg-muted text-foreground"
+                )}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </div>
 
@@ -79,9 +90,9 @@ export function Header() {
                 {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
               </button>
             )}
-            <a href="#gala" className="hidden lg:inline-flex">
+            <Link href="/#gala" className="hidden lg:inline-flex">
               <Button size="sm">RSVP</Button>
-            </a>
+            </Link>
             <button
               onClick={() => setMobileOpen(true)}
               className="rounded-full p-2 text-muted-foreground lg:hidden"
@@ -100,7 +111,7 @@ export function Header() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] bg-background"
+            className="fixed inset-0 z-[60] overflow-y-auto bg-background"
           >
             <div className="flex items-center justify-between px-4 py-4">
               <span className="text-xl font-bold font-serif">
@@ -115,25 +126,29 @@ export function Header() {
                 <X size={22} />
               </button>
             </div>
-            <nav className="flex flex-col gap-2 px-6 pt-8">
+            <nav className="flex flex-col gap-2 px-6 pt-8 pb-8">
               {navLinks.map((link, i) => (
-                <motion.a
+                <MotionLink
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.05 }}
-                  className="border-b border-border py-4 text-2xl font-serif text-foreground"
+                  aria-current={pathname === link.href ? "page" : undefined}
+                  className={cn(
+                    "border-b border-border py-4 text-2xl font-serif text-foreground",
+                    pathname === link.href && "text-violet"
+                  )}
                 >
                   {link.label}
-                </motion.a>
+                </MotionLink>
               ))}
-              <a href="#gala" onClick={() => setMobileOpen(false)}>
+              <Link href="/#gala" onClick={() => setMobileOpen(false)}>
                 <Button size="lg" className="mt-8 w-full">
                   RSVP to Gala
                 </Button>
-              </a>
+              </Link>
             </nav>
           </motion.div>
         )}

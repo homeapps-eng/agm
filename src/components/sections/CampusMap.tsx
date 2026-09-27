@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { buildings, type Building } from "@/data/buildings";
-import { RotateCw } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { ChevronLeft, ChevronRight, RotateCw } from "lucide-react";
 
 const GOOGLE_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY;
 
@@ -15,6 +16,36 @@ function streetViewUrl(b: Building, size = "600x400") {
 }
 
 export function CampusMap() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const updateScrollState = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 4);
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+  }, []);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    updateScrollState();
+    el.addEventListener("scroll", updateScrollState, { passive: true });
+    window.addEventListener("resize", updateScrollState);
+    return () => {
+      el.removeEventListener("scroll", updateScrollState);
+      window.removeEventListener("resize", updateScrollState);
+    };
+  }, [updateScrollState]);
+
+  const scrollByCard = (dir: 1 | -1) => {
+    const el = scrollRef.current;
+    if (!el) return;
+    // Card width (w-[280px]) + gap-5 (20px)
+    el.scrollBy({ left: dir * 300, behavior: "smooth" });
+  };
+
   return (
     <SectionWrapper id="campus" className="overflow-hidden">
       <SectionHeading
@@ -23,15 +54,42 @@ export function CampusMap() {
         subtitle="Every corner of campus, one card at a time. Tap any card to flip it."
       />
 
-      <div className="-mx-4 overflow-x-auto px-4 pb-4">
-        <div
-          className="flex min-w-max gap-5"
-          style={{ perspective: "1600px" }}
-        >
-          {buildings.map((b) => (
-            <FlipCard key={b.id} building={b} />
-          ))}
+      <div className="relative -mx-4">
+        <div ref={scrollRef} className="overflow-x-auto px-4 pb-4">
+          <div
+            className="flex min-w-max gap-5"
+            style={{ perspective: "1600px" }}
+          >
+            {buildings.map((b) => (
+              <FlipCard key={b.id} building={b} />
+            ))}
+          </div>
         </div>
+
+        {/* Arrows sit over the photos so they never cover card titles */}
+        <button
+          type="button"
+          onClick={() => scrollByCard(-1)}
+          aria-label="Scroll campus deck left"
+          className={cn(
+            "absolute left-4 top-[35%] z-10 -translate-y-1/2 rounded-full border border-border bg-background/80 p-2.5 text-foreground shadow-sm backdrop-blur-sm transition-all duration-200 hover:border-violet hover:text-violet",
+            !canScrollLeft && "pointer-events-none opacity-0"
+          )}
+        >
+          <ChevronLeft size={18} />
+        </button>
+
+        <button
+          type="button"
+          onClick={() => scrollByCard(1)}
+          aria-label="Scroll campus deck right"
+          className={cn(
+            "absolute right-4 top-[35%] z-10 -translate-y-1/2 rounded-full border border-border bg-background/80 p-2.5 text-foreground shadow-sm backdrop-blur-sm transition-all duration-200 hover:border-violet hover:text-violet",
+            !canScrollRight && "pointer-events-none opacity-0"
+          )}
+        >
+          <ChevronRight size={18} />
+        </button>
       </div>
     </SectionWrapper>
   );

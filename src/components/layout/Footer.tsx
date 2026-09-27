@@ -20,10 +20,11 @@ export function Footer() {
             <h3 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-3">Quick Links</h3>
             <div className="flex flex-col gap-2">
               {[
-                { label: "Timeline", href: "#timeline" },
-                { label: "Gallery", href: "#gallery" },
-                { label: "Gala", href: "#gala" },
-                { label: "Events", href: "#events" },
+                { label: "Timeline", href: "/#timeline" },
+                { label: "Gallery", href: "/#gallery" },
+                { label: "Gala", href: "/#gala" },
+                { label: "Table Seating", href: "/seating" },
+                { label: "Events", href: "/#events" },
                 { label: "AGM School", href: "https://www.agmschool.org/", external: true },
               ].map((link) => (
                 <a

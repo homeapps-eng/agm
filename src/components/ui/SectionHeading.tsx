@@ -11,9 +11,10 @@ interface SectionHeadingProps {
   subtitle?: string;
   className?: string;
   align?: "left" | "center";
+  as?: "h1" | "h2";
 }
 
-export function SectionHeading({ badge, title, subtitle, className, align = "center" }: SectionHeadingProps) {
+export function SectionHeading({ badge, title, subtitle, className, align = "center", as: Heading = "h2" }: SectionHeadingProps) {
   return (
     <motion.div
       variants={fadeInUp}
@@ -28,9 +29,9 @@ export function SectionHeading({ badge, title, subtitle, className, align = "cen
           {badge}
         </Badge>
       )}
-      <h2 className="text-3xl font-normal tracking-tight sm:text-4xl md:text-5xl">
+      <Heading className="text-3xl font-normal tracking-tight sm:text-4xl md:text-5xl">
         {title}
-      </h2>
+      </Heading>
       {subtitle && (
         <p className="mt-4 max-w-2xl text-lg text-muted-foreground mx-auto">
           {subtitle}

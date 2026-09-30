@@ -1,27 +1,16 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
-import { useToast } from "@/components/ui/Toast";
 import { galaInfo, schedule, speakers } from "@/data/gala";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
 import { Calendar, MapPin, Clock, Sparkles } from "lucide-react";
 
 export function Gala() {
-  const { toast } = useToast();
-  const [formData, setFormData] = useState({ name: "", email: "", guests: "1" });
-
-  const handleRSVP = (e: React.FormEvent) => {
-    e.preventDefault();
-    toast(`Thank you, ${formData.name}! Your RSVP has been received.`, "success");
-    setFormData({ name: "", email: "", guests: "1" });
-  };
-
   return (
     <SectionWrapper id="gala" className="bg-muted/30">
       <SectionHeading
@@ -122,46 +111,16 @@ export function Gala() {
         </div>
       </div>
 
-      {/* RSVP Form */}
+      {/* Donate & Tickets */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="mx-auto mt-20 max-w-lg"
+        className="mt-20 flex justify-center"
       >
-        <GlassCard className="p-8">
-          <h3 className="mb-6 text-center text-2xl font-serif">RSVP Now</h3>
-          <form onSubmit={handleRSVP} className="space-y-4">
-            <input
-              type="text"
-              placeholder="Your Name"
-              required
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm focus:border-violet focus:outline-none focus:ring-1 focus:ring-violet"
-            />
-            <input
-              type="email"
-              placeholder="Email Address"
-              required
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm focus:border-violet focus:outline-none focus:ring-1 focus:ring-violet"
-            />
-            <select
-              value={formData.guests}
-              onChange={(e) => setFormData({ ...formData, guests: e.target.value })}
-              className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm focus:border-violet focus:outline-none focus:ring-1 focus:ring-violet"
-            >
-              {[1, 2, 3, 4].map((n) => (
-                <option key={n} value={n}>{n} {n === 1 ? "Guest" : "Guests"}</option>
-              ))}
-            </select>
-            <Button type="submit" className="w-full">
-              Confirm RSVP
-            </Button>
-          </form>
-        </GlassCard>
+        <a href={galaInfo.donateUrl} target="_blank" rel="noopener noreferrer">
+          <Button size="lg">Donate &amp; Tickets</Button>
+        </a>
       </motion.div>
     </SectionWrapper>
   );

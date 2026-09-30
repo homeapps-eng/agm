@@ -12,6 +12,15 @@ export interface AGMEvent {
 
 export const events: AGMEvent[] = [
   {
+    id: "golf-tournament-2026",
+    title: "5th Annual AGM Golf Tournament",
+    date: "2026-10-02",
+    location: "Tijeras Creek Golf Club",
+    description: "Friendly competition, great company, and plenty of Eagle spirit. Register at agm.impactroots.com.",
+    instagramUrl: "https://www.instagram.com/p/Dd4lCbjy0mq/",
+    instagramPostUrl: "https://www.instagram.com/p/Dd4lCbjy0mq/",
+  },
+  {
     id: "ig-post-1",
     title: "From @agm40years",
     date: "2026-06-01",

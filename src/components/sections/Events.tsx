@@ -1,5 +1,6 @@
 "use client";
 
+import { useCallback, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -7,8 +8,8 @@ import { GlassCard } from "@/components/ui/GlassCard";
 import { Badge } from "@/components/ui/Badge";
 import { events, type AGMEvent } from "@/data/events";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
-import { toInstagramEmbed } from "@/lib/utils";
-import { Calendar, Clock, MapPin, Instagram, ArrowUpRight } from "lucide-react";
+import { cn, toInstagramEmbed } from "@/lib/utils";
+import { Calendar, Clock, MapPin, Instagram, ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 
 function formatDate(iso: string) {
   const d = new Date(iso + "T00:00:00");
@@ -32,6 +33,36 @@ function sortEvents(list: AGMEvent[]) {
 
 export function Events() {
   const sorted = sortEvents(events);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const updateScrollState = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 4);
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+  }, []);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    updateScrollState();
+    el.addEventListener("scroll", updateScrollState, { passive: true });
+    window.addEventListener("resize", updateScrollState);
+    return () => {
+      el.removeEventListener("scroll", updateScrollState);
+      window.removeEventListener("resize", updateScrollState);
+    };
+  }, [updateScrollState]);
+
+  const scrollByCard = (dir: 1 | -1) => {
+    const el = scrollRef.current;
+    const card = el?.firstElementChild as HTMLElement | null;
+    if (!el || !card) return;
+    // One card width + gap-6 (24px)
+    el.scrollBy({ left: dir * (card.offsetWidth + 24), behavior: "smooth" });
+  };
 
   return (
     <SectionWrapper id="events">
@@ -48,23 +79,55 @@ export function Events() {
           </p>
         </GlassCard>
       ) : (
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
-        >
-          {sorted.map((event) => (
-            <motion.div key={event.id} variants={fadeInUp}>
-              {event.instagramPostUrl ? (
-                <InstagramEmbedCard event={event} />
-              ) : (
-                <EventCard event={event} />
-              )}
-            </motion.div>
-          ))}
-        </motion.div>
+        <div className="relative">
+          {/* Shows 3 cards on desktop, 2 on tablet, 1 on mobile */}
+          <motion.div
+            ref={scrollRef}
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4"
+          >
+            {sorted.map((event) => (
+              <motion.div
+                key={event.id}
+                variants={fadeInUp}
+                className="w-full flex-shrink-0 snap-start sm:w-[calc((100%-1.5rem)/2)] lg:w-[calc((100%-3rem)/3)]"
+              >
+                {event.instagramPostUrl ? (
+                  <InstagramEmbedCard event={event} />
+                ) : (
+                  <EventCard event={event} />
+                )}
+              </motion.div>
+            ))}
+          </motion.div>
+
+          <button
+            type="button"
+            onClick={() => scrollByCard(-1)}
+            aria-label="Scroll events left"
+            className={cn(
+              "absolute left-2 top-1/2 z-10 -translate-y-1/2 rounded-full border border-border bg-background/80 p-2.5 text-foreground shadow-sm backdrop-blur-sm transition-all duration-200 hover:border-violet hover:text-violet",
+              !canScrollLeft && "pointer-events-none opacity-0"
+            )}
+          >
+            <ChevronLeft size={18} />
+          </button>
+
+          <button
+            type="button"
+            onClick={() => scrollByCard(1)}
+            aria-label="Scroll events right"
+            className={cn(
+              "absolute right-2 top-1/2 z-10 -translate-y-1/2 rounded-full border border-border bg-background/80 p-2.5 text-foreground shadow-sm backdrop-blur-sm transition-all duration-200 hover:border-violet hover:text-violet",
+              !canScrollRight && "pointer-events-none opacity-0"
+            )}
+          >
+            <ChevronRight size={18} />
+          </button>
+        </div>
       )}
     </SectionWrapper>
   );

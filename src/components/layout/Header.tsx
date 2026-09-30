@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import { Sun, Moon, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
+import { galaInfo } from "@/data/gala";
 
 const MotionLink = motion.create(Link);
 
@@ -16,12 +17,12 @@ const navLinks = [
   { label: "Timeline", href: "/#timeline" },
   { label: "Gallery", href: "/#gallery" },
   { label: "Gala", href: "/#gala" },
-  { label: "Seating", href: "/seating" },
   { label: "Events", href: "/#events" },
   { label: "Sponsorship", href: "/#community" },
+  { label: "Sponsors", href: "/#sponsors" },
   { label: "Honors", href: "/#honors" },
-  { label: "Campus", href: "/#campus" },
   { label: "Future", href: "/#future" },
+  { label: "Campus", href: "/#campus" },
 ];
 
 export function Header() {
@@ -71,7 +72,7 @@ export function Header() {
                 href={link.href}
                 aria-current={pathname === link.href ? "page" : undefined}
                 className={cn(
-                  "rounded-full px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
+                  "rounded-full px-2 py-2 text-sm xl:px-3 font-medium text-muted-foreground transition-colors hover:text-foreground",
                   pathname === link.href && "bg-muted text-foreground"
                 )}
               >
@@ -90,9 +91,9 @@ export function Header() {
                 {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
               </button>
             )}
-            <Link href="/#gala" className="hidden lg:inline-flex">
-              <Button size="sm">RSVP</Button>
-            </Link>
+            <a href={galaInfo.donateUrl} target="_blank" rel="noopener noreferrer" className="hidden lg:inline-flex">
+              <Button size="sm" className="whitespace-nowrap">Donate &amp; Tickets</Button>
+            </a>
             <button
               onClick={() => setMobileOpen(true)}
               className="rounded-full p-2 text-muted-foreground lg:hidden"
@@ -144,11 +145,11 @@ export function Header() {
                   {link.label}
                 </MotionLink>
               ))}
-              <Link href="/#gala" onClick={() => setMobileOpen(false)}>
+              <a href={galaInfo.donateUrl} target="_blank" rel="noopener noreferrer" onClick={() => setMobileOpen(false)}>
                 <Button size="lg" className="mt-8 w-full">
-                  RSVP to Gala
+                  Donate &amp; Tickets
                 </Button>
-              </Link>
+              </a>
             </nav>
           </motion.div>
         )}

@@ -12,6 +12,7 @@ export const galleryCategories = ["All", "Soaring Stories", "Campus", "Events", 
 export type GalleryCategory = (typeof galleryCategories)[number];
 
 export const galleryImages: GalleryImage[] = [
+  { id: 23, src: "", alt: "40 years of AGM", category: "Soaring Stories", width: 600, height: 800, instagramPostUrl: "https://www.instagram.com/p/DdmblEmD00J/" },
   { id: 14, src: "", alt: "From @agm40years", category: "Soaring Stories", width: 600, height: 800, instagramPostUrl: "https://www.instagram.com/reel/DVolFraEcUp/" },
   { id: 11, src: "", alt: "Alumni reunion", category: "Soaring Stories", width: 600, height: 800, instagramPostUrl: "https://www.instagram.com/reel/DXISL5ggYAd/" },
   { id: 15, src: "", alt: "Soaring Stories", category: "Soaring Stories", width: 600, height: 800, instagramPostUrl: "https://www.instagram.com/reel/DTyHurbkrxs/" },
@@ -22,10 +23,14 @@ export const galleryImages: GalleryImage[] = [
   { id: 7, src: "", alt: "Athletics", category: "Athletics", width: 600, height: 800, instagramPostUrl: "https://www.instagram.com/p/DVaEyCAj22K/" },
   { id: 8, src: "", alt: "Achievement Trophy", category: "Athletics", width: 600, height: 800, instagramPostUrl: "https://www.instagram.com/p/DVZ8feKkVgz/?img_index=1" },
   { id: 18, src: "", alt: "Athletics", category: "Athletics", width: 600, height: 800, instagramPostUrl: "https://www.instagram.com/p/DYFxcR0hakX/" },
+  { id: 27, src: "", alt: "Honoring our tenured staff", category: "People", width: 600, height: 800, instagramPostUrl: "https://www.instagram.com/p/DdXKVqvEh1n/" },
   { id: 13, src: "/gallery/people-4.jpg", alt: "Special Guest", category: "People", width: 1000, height: 800 },
   { id: 1, src: "/gallery/campus-1.jpg", alt: "Main campus building at sunset", category: "Campus", width: 800, height: 600 },
   { id: 19, src: "", alt: "Campus", category: "Campus", width: 600, height: 800, instagramPostUrl: "https://www.instagram.com/p/DW-U4bWgh2h/" },
   { id: 20, src: "", alt: "Campus", category: "Campus", width: 600, height: 800, instagramPostUrl: "https://www.instagram.com/p/DXAxtSgCRTc/" },
+  { id: 24, src: "", alt: "AGM 40th birthday celebration", category: "Events", width: 600, height: 800, instagramPostUrl: "https://www.instagram.com/reel/DdnJQEXCKNU/" },
+  { id: 25, src: "", alt: "First church visit of the school year", category: "Events", width: 600, height: 800, instagramPostUrl: "https://www.instagram.com/p/DdcDW0WmAX0/" },
+  { id: 26, src: "", alt: "Armenian Independence Day", category: "Events", width: 600, height: 800, instagramPostUrl: "https://www.instagram.com/reel/DdjsxFNitRl/" },
   { id: 2, src: "/gallery/event-1.jpg", alt: "Graduation ceremony", category: "Events", width: 600, height: 800, instagramPostUrl: "https://www.instagram.com/p/DYP6LQDBC1Q/" },
   { id: 3, src: "/gallery/people-1.jpg", alt: "AGM Teachers Appreciation", category: "People", width: 600, height: 800, instagramPostUrl: "https://www.instagram.com/p/DX7akjWAZSC/?img_index=1" },
   { id: 4, src: "/gallery/research-1.jpg", alt: "AGM in 90s", category: "People", width: 600, height: 800, instagramPostUrl: "https://www.instagram.com/p/DXXRe_OD5PO/" },

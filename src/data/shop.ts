@@ -5,7 +5,7 @@ export interface Product {
   price: number;
   category: string;
   image: string;
-  badge?: string;
+  url: string;
 }
 
 export interface DonationTier {
@@ -17,12 +17,11 @@ export interface DonationTier {
 }
 
 export const products: Product[] = [
-  { id: 1, name: "40th Anniversary Hoodie", description: "Premium cotton hoodie with embroidered anniversary crest.", price: 65, category: "Apparel", image: "/shop/hoodie.jpg", badge: "Bestseller" },
-  { id: 2, name: "Commemorative Book", description: "A 300-page hardcover documenting AGM's 40-year journey.", price: 45, category: "Books", image: "/shop/book.jpg", badge: "New" },
-  { id: 3, name: "Anniversary Pin Set", description: "Enamel pin set featuring the anniversary logo and crest.", price: 20, category: "Accessories", image: "/shop/pins.jpg" },
-  { id: 4, name: "Campus Art Print", description: "Limited edition watercolor print of the original campus.", price: 35, category: "Art", image: "/shop/print.jpg", badge: "Limited" },
-  { id: 5, name: "Alumni T-Shirt", description: "Soft tri-blend tee with vintage AGM logo.", price: 30, category: "Apparel", image: "/shop/tshirt.jpg" },
-  { id: 6, name: "Coffee Mug", description: "Ceramic mug with gold-foil anniversary seal.", price: 18, category: "Accessories", image: "/shop/mug.jpg" },
+  { id: 1, name: "Minassian Varsity Tee", description: "Cream tee with the MINASSIAN varsity arch on the front and the 40th anniversary seal on the back. Sizes XS–4XL.", price: 20, category: "Adult", image: "/shop/minassian-varsity-tee.jpg", url: "https://preview.chipply.com/product.html?pid=30918702&eid=640330" },
+  { id: 2, name: "Minassian Varsity Youth Crewneck", description: "Navy crewneck sweatshirt with the MINASSIAN varsity arch on the front and the 40th anniversary seal on the back. Sizes YXS–YXL.", price: 50, category: "Youth", image: "/shop/minassian-varsity-youth-crewneck.jpg", url: "https://preview.chipply.com/product.html?pid=30920829&eid=640330" },
+  { id: 3, name: "Minassian Varsity Crewneck", description: "Navy crewneck sweatshirt with the MINASSIAN varsity arch on the front and the 40th anniversary seal on the back. Sizes XS–5XL.", price: 60, category: "Adult", image: "/shop/minassian-varsity-crewneck.jpg", url: "https://preview.chipply.com/product.html?pid=30920802&eid=640330" },
+  { id: 4, name: "Armenian Alphabet Youth Tee", description: "Navy tee with an Armenian alphabet design on the front and the 40th anniversary seal on the back. Sizes YXS–YXL.", price: 20, category: "Youth", image: "/shop/armenian-alphabet-youth-tee.jpg", url: "https://preview.chipply.com/product.html?pid=30920658&eid=640330" },
+  { id: 5, name: "Armenian Alphabet Tee", description: "Navy tee with an Armenian alphabet design on the front and the 40th anniversary seal on the back. Sizes XS–4XL.", price: 20, category: "Adult", image: "/shop/armenian-alphabet-tee.jpg", url: "https://preview.chipply.com/product.html?pid=30918728&eid=640330" },
 ];
 
 export const donationTiers: DonationTier[] = [

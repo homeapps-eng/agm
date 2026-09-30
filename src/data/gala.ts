@@ -16,6 +16,7 @@ export const galaInfo = {
   venue: "Richard Nixon Presidential Library, Yorba Linda, CA",
   address: "18001 Yorba Linda Blvd, Yorba Linda, CA 92886",
   dressCode: "Occasion Attire (Black Tie Optional)",
+  donateUrl: "https://givebutter.com/c/agmgala",
 };
 
 export const schedule: ScheduleItem[] = [];

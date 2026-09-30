@@ -5,12 +5,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { GlassCard } from "@/components/ui/GlassCard";
-import { visionCards, quotes } from "@/data/future";
+import { visionIntro, visionCards, visionStatement, quotes } from "@/data/future";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
-import { Brain, Globe, Leaf, BookOpen, ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import { Sprout, Lightbulb, Heart, Landmark, ChevronLeft, ChevronRight, Quote } from "lucide-react";
 
 const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
-  Brain, Globe, Leaf, BookOpen,
+  Sprout, Lightbulb, Heart, Landmark,
 };
 
 export function Future() {
@@ -29,7 +29,7 @@ export function Future() {
       <SectionHeading
         badge="Vision"
         title="The Next 40 Years"
-        subtitle="Bold aspirations for the future of education and innovation."
+        subtitle={visionIntro}
       />
 
       {/* Vision Cards */}
@@ -41,7 +41,7 @@ export function Future() {
         className="grid gap-6 sm:grid-cols-2"
       >
         {visionCards.map((card) => {
-          const Icon = iconMap[card.icon] || Brain;
+          const Icon = iconMap[card.icon] || Sprout;
           return (
             <motion.div key={card.title} variants={fadeInUp}>
               <GlassCard className="h-full" whileHover={{ y: -4 }}>
@@ -55,6 +55,17 @@ export function Future() {
           );
         })}
       </motion.div>
+
+      {/* Main Vision */}
+      <motion.p
+        variants={fadeInUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        className="mx-auto mt-16 max-w-3xl text-balance text-center text-2xl font-serif leading-relaxed text-violet md:text-3xl"
+      >
+        {visionStatement}
+      </motion.p>
 
       {/* Quote Carousel */}
       <div className="mx-auto mt-20 max-w-3xl">

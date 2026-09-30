@@ -6,10 +6,9 @@ import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { Button } from "@/components/ui/Button";
-import { useToast } from "@/components/ui/Toast";
 import { donationTiers } from "@/data/shop";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
-import { Heart, Check, Send, Star } from "lucide-react";
+import { Heart, Check, Send, Star, User, Mail } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 function formatAmount(amount: number) {
@@ -17,19 +16,11 @@ function formatAmount(amount: number) {
 }
 
 export function Community() {
-  const { toast } = useToast();
   const [selectedTier, setSelectedTier] = useState<number | null>(null);
-  const [contactForm, setContactForm] = useState({ name: "", email: "", message: "" });
 
   const handleDonate = () => {
     if (selectedTier === null) return;
     window.open("https://givebutter.com/agm40", "_blank");
-  };
-
-  const handleContact = (e: React.FormEvent) => {
-    e.preventDefault();
-    toast("Message sent! We'll be in touch soon.", "success");
-    setContactForm({ name: "", email: "", message: "" });
   };
 
   const featuredTiers = donationTiers.filter((t) => t.featured);
@@ -156,7 +147,7 @@ export function Community() {
         </motion.div>
       )}
 
-      {/* Contact Form */}
+      {/* Contact Information */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -165,36 +156,25 @@ export function Community() {
       >
         <GlassCard className="p-8">
           <h3 className="mb-6 text-center text-2xl font-serif">Get in Touch</h3>
-          <form onSubmit={handleContact} className="space-y-4">
-            <input
-              type="text"
-              placeholder="Your Name"
-              required
-              value={contactForm.name}
-              onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
-              className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm focus:border-violet focus:outline-none focus:ring-1 focus:ring-violet"
-            />
-            <input
-              type="email"
-              placeholder="Email Address"
-              required
-              value={contactForm.email}
-              onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
-              className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm focus:border-violet focus:outline-none focus:ring-1 focus:ring-violet"
-            />
-            <textarea
-              placeholder="Your Message"
-              required
-              rows={4}
-              value={contactForm.message}
-              onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
-              className="w-full resize-none rounded-xl border border-border bg-background px-4 py-3 text-sm focus:border-violet focus:outline-none focus:ring-1 focus:ring-violet"
-            />
-            <Button type="submit" className="w-full gap-2">
-              <Send size={16} />
-              Send Message
-            </Button>
-          </form>
+          <div className="space-y-4">
+            <div className="flex w-full items-center gap-3 rounded-xl border border-border bg-background px-4 py-3 text-sm">
+              <User size={16} className="text-violet" />
+              Support Team
+            </div>
+            <a
+              href="mailto:Talar@apelinc.net"
+              className="flex w-full items-center gap-3 rounded-xl border border-border bg-background px-4 py-3 text-sm transition-colors hover:border-violet"
+            >
+              <Mail size={16} className="text-violet" />
+              Talar@apelinc.net
+            </a>
+            <a href="mailto:Talar@apelinc.net" className="block">
+              <Button className="w-full gap-2">
+                <Send size={16} />
+                Send Message
+              </Button>
+            </a>
+          </div>
         </GlassCard>
       </motion.div>
     </SectionWrapper>

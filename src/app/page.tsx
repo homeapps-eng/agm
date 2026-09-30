@@ -13,6 +13,7 @@ import { CampusMap } from "@/components/sections/CampusMap";
 import { Shop } from "@/components/sections/Shop";
 import { Future } from "@/components/sections/Future";
 import { Community } from "@/components/sections/Community";
+import { Sponsors } from "@/components/sections/Sponsors";
 
 export default function Home() {
   return (
@@ -26,9 +27,10 @@ export default function Home() {
         <Events />
         <Shop />
         <Community />
+        <Sponsors />
         <Honors />
-        <CampusMap />
         <Future />
+        <CampusMap />
       </main>
       <Footer />
     </ToastProvider>

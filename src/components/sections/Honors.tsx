@@ -5,7 +5,7 @@ import { motion, useInView } from "framer-motion";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { GlassCard } from "@/components/ui/GlassCard";
-import { stats, notableAlumni, achievements } from "@/data/honors";
+import { stats } from "@/data/honors";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
 import { Award, Users, GraduationCap, BookOpen, UserCheck } from "lucide-react";
 
@@ -71,62 +71,6 @@ export function Honors() {
           );
         })}
       </motion.div>
-
-      {/* Notable Alumni */}
-      <div className="mt-20">
-        <h3 className="mb-8 text-center text-2xl font-serif">Notable Alumni</h3>
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
-        >
-          {notableAlumni.map((alum, i) => (
-            <motion.div key={i} variants={fadeInUp}>
-              <GlassCard className="h-full">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <h4 className="font-semibold">{alum.name}</h4>
-                    {alum.role && <p className="text-sm text-violet">{alum.role}</p>}
-                  </div>
-                  {alum.year > 0 && (
-                    <span className="rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground">
-                      &apos;{String(alum.year).slice(-2)}
-                    </span>
-                  )}
-                </div>
-                {alum.achievement && (
-                  <p className="mt-3 text-sm text-muted-foreground">{alum.achievement}</p>
-                )}
-              </GlassCard>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-
-      {/* Achievement Ticker */}
-      <div className="mt-16 overflow-hidden">
-        <div className="flex w-max animate-[ticker_40s_linear_infinite] gap-6 pr-6">
-          {[...achievements, ...achievements].map((a, i) => (
-            <div
-              key={i}
-              className="flex-shrink-0 whitespace-nowrap rounded-full border border-border bg-card px-5 py-2 text-sm"
-            >
-              <span className="font-medium text-violet">{a.year}</span>
-              <span className="mx-2 text-muted-foreground">&mdash;</span>
-              <span>{a.text}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <style jsx>{`
-        @keyframes ticker {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-      `}</style>
     </SectionWrapper>
   );
 }

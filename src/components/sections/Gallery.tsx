@@ -7,12 +7,16 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Tabs } from "@/components/ui/Tabs";
 import { Modal } from "@/components/ui/Modal";
 import { galleryImages, galleryCategories, type GalleryCategory } from "@/data/gallery";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/Button";
+import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn, toInstagramEmbed } from "@/lib/utils";
+
+const MOBILE_PREVIEW_COUNT = 5;
 
 export function Gallery() {
   const [activeTab, setActiveTab] = useState<string>("All");
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [showAll, setShowAll] = useState(false);
 
   const filtered = activeTab === "All"
     ? galleryImages
@@ -41,11 +45,12 @@ export function Gallery() {
         onTabChange={(t) => {
           setActiveTab(t as GalleryCategory);
           setSelectedIndex(null);
+          setShowAll(false);
         }}
         className="mb-10 justify-center"
       />
 
-      <motion.div layout className="columns-1 gap-4 sm:columns-2 lg:columns-3">
+      <motion.div layout className="grid grid-cols-1 items-start gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <AnimatePresence mode="popLayout">
           {filtered.map((img, i) => (
             <motion.div
@@ -56,7 +61,8 @@ export function Gallery() {
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.4 }}
               className={cn(
-                "mb-4 break-inside-avoid overflow-hidden rounded-xl",
+                "overflow-hidden rounded-xl",
+                !showAll && i >= MOBILE_PREVIEW_COUNT && "hidden sm:block",
                 !img.instagramPostUrl && "cursor-pointer"
               )}
               onClick={() => !img.instagramPostUrl && setSelectedIndex(i)}
@@ -94,6 +100,15 @@ export function Gallery() {
           ))}
         </AnimatePresence>
       </motion.div>
+
+      {!showAll && filtered.length > MOBILE_PREVIEW_COUNT && (
+        <div className="mt-2 flex justify-center sm:hidden">
+          <Button variant="outline" size="sm" onClick={() => setShowAll(true)}>
+            Show all {filtered.length} posts
+            <ChevronDown size={16} />
+          </Button>
+        </div>
+      )}
 
       {/* Lightbox Modal */}
       <Modal

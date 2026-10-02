@@ -8,6 +8,7 @@ import { GlassCard } from "@/components/ui/GlassCard";
 import { stats } from "@/data/honors";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
 import { Award, Users, GraduationCap, BookOpen, UserCheck } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const statIcons = [Award, Users, GraduationCap, BookOpen, UserCheck];
 
@@ -35,7 +36,7 @@ function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
   }, [inView, value]);
 
   return (
-    <span ref={ref} className="text-4xl font-bold font-serif text-gradient sm:text-5xl">
+    <span ref={ref} className="text-3xl font-bold font-serif text-gradient sm:text-5xl">
       {count.toLocaleString()}{suffix}
     </span>
   );
@@ -56,16 +57,21 @@ export function Honors() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-5"
+        className="grid grid-cols-6 gap-2 sm:gap-6 md:grid-cols-3 lg:grid-cols-5"
       >
         {stats.map((stat, i) => {
           const Icon = statIcons[i];
           return (
-            <motion.div key={stat.label} variants={fadeInUp} className="text-center">
-              <GlassCard className="flex flex-col items-center gap-3 p-8">
-                <Icon size={28} className="text-violet" />
+            <motion.div
+              key={stat.label}
+              variants={fadeInUp}
+              // Phones: 3 cards in the first row, 2 in the second (6-column grid)
+              className={cn("text-center md:col-span-1", i < 3 ? "col-span-2" : "col-span-3")}
+            >
+              <GlassCard className="flex h-full flex-col items-center gap-2 px-2 py-4 sm:gap-3 sm:p-8">
+                <Icon size={28} className="h-[22px] w-[22px] text-violet sm:h-7 sm:w-7" />
                 <AnimatedCounter value={stat.value} suffix={stat.suffix} />
-                <span className="text-sm text-muted-foreground">{stat.label}</span>
+                <span className="text-xs leading-tight text-muted-foreground sm:text-sm">{stat.label}</span>
               </GlassCard>
             </motion.div>
           );

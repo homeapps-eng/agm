@@ -83,7 +83,8 @@ export function Timeline() {
             tabs={decades}
             activeTab={activeDecade}
             onTabChange={setActiveDecade}
-            className="mb-8 justify-center"
+            // All decades in one row: equal-width pills that share the full width
+            className="mb-8 flex-nowrap gap-1 *:flex-1 *:px-0"
           />
           <div className="relative border-l-2 border-violet/30 pl-8">
             {mobileEvents.map((event, i) => (

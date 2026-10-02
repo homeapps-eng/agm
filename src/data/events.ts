@@ -17,8 +17,8 @@ export const events: AGMEvent[] = [
     date: "2026-10-02",
     location: "Tijeras Creek Golf Club",
     description: "Friendly competition, great company, and plenty of Eagle spirit. Register at agm.impactroots.com.",
-    instagramUrl: "https://www.instagram.com/p/Dd4lCbjy0mq/",
-    instagramPostUrl: "https://www.instagram.com/p/Dd4lCbjy0mq/",
+    instagramUrl: "https://www.instagram.com/p/Dc_5luAAbUy/",
+    instagramPostUrl: "https://www.instagram.com/p/Dc_5luAAbUy/",
   },
   {
     id: "ig-post-1",

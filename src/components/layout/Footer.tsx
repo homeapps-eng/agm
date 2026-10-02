@@ -23,7 +23,6 @@ export function Footer() {
                 { label: "Timeline", href: "/#timeline" },
                 { label: "Gallery", href: "/#gallery" },
                 { label: "Gala", href: "/#gala" },
-                { label: "Table Seating", href: "/seating" },
                 { label: "Events", href: "/#events" },
                 { label: "AGM School", href: "https://www.agmschool.org/", external: true },
               ].map((link) => (
@@ -46,10 +45,11 @@ export function Footer() {
             <p className="text-sm text-muted-foreground">+1 (714) 839-7831</p>
           </div>
         </div>
-        <div className="mt-10 flex items-center justify-center gap-1 border-t border-border pt-8 text-sm text-muted-foreground">
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-1 border-t border-border pt-8 text-center text-sm text-muted-foreground">
           <span>Made with</span>
           <Heart size={14} className="text-violet fill-violet" />
           <span>for AGM&apos;s 40th Anniversary</span>
+          <span>from Sayadyan Family</span>
         </div>
       </div>
     </footer>

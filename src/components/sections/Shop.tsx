@@ -22,7 +22,7 @@ export function Shop() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+        className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3"
       >
         {products.map((product) => (
           <motion.div key={product.id} variants={fadeInUp}>
@@ -41,13 +41,13 @@ export function Shop() {
                     loading="lazy"
                   />
                 </div>
-                <div className="flex flex-1 flex-col p-5">
+                <div className="flex flex-1 flex-col p-3 sm:p-5">
                   <span className="text-xs text-muted-foreground">{product.category}</span>
-                  <h3 className="mt-1 font-semibold">{product.name}</h3>
-                  <p className="mt-1 flex-1 text-sm text-muted-foreground">{product.description}</p>
-                  <div className="mt-4 flex items-center justify-between">
-                    <span className="text-lg font-bold text-violet">${product.price}</span>
-                    <span className="inline-flex items-center gap-1.5 text-sm font-medium transition-colors group-hover:text-violet">
+                  <h3 className="mt-1 text-sm font-semibold leading-snug sm:text-base">{product.name}</h3>
+                  <p className="mt-1 flex-1 text-xs text-muted-foreground sm:text-sm">{product.description}</p>
+                  <div className="mt-3 flex items-center justify-between sm:mt-4">
+                    <span className="text-base font-bold text-violet sm:text-lg">${product.price}</span>
+                    <span className="inline-flex items-center gap-1 text-xs font-medium transition-colors group-hover:text-violet sm:gap-1.5 sm:text-sm">
                       Shop now
                       <ArrowUpRight size={14} />
                     </span>

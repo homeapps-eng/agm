@@ -19,7 +19,8 @@ export function Timeline() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
-  const [activeDecade, setActiveDecade] = useState<string>(decades[0]);
+  // Mobile opens on the most recent decade
+  const [activeDecade, setActiveDecade] = useState<string>(decades[decades.length - 1]);
 
   const mobileEvents = useMemo(
     () => timelineEvents.filter((e) => e.decade === activeDecade),

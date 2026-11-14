@@ -1,125 +1,167 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { Button } from "@/components/ui/Button";
-import { Badge } from "@/components/ui/Badge";
-import { galaInfo, schedule, speakers } from "@/data/gala";
+import { galaInfo, schedule } from "@/data/gala";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
-import { Calendar, MapPin, Clock, Sparkles } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Armchair, ArrowUpRight, CalendarDays, MapPin, Sparkles, type LucideIcon } from "lucide-react";
+
+const directionsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+  `${galaInfo.venueName}, ${galaInfo.address}`
+)}`;
+
+interface Detail {
+  icon: LucideIcon;
+  label: string;
+  value: string;
+  note: string;
+  link?: { href: string; label: string };
+}
+
+const details: Detail[] = [
+  { icon: CalendarDays, label: "When", value: `${galaInfo.weekday}, ${galaInfo.date}`, note: galaInfo.time },
+  {
+    icon: MapPin,
+    label: "Where",
+    value: galaInfo.venueName,
+    note: galaInfo.address,
+    link: { href: directionsUrl, label: "Get directions" },
+  },
+  { icon: Sparkles, label: "Dress Code", value: galaInfo.dressCode, note: galaInfo.dressCodeNote },
+];
+
+function DetailCard({ icon: Icon, label, value, note, link }: Detail) {
+  return (
+    // Icon stacks above the text while three cards share a narrow row (md to lg)
+    <GlassCard className="flex h-full items-start gap-4 md:flex-col xl:flex-row">
+      <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-violet/10 text-violet">
+        <Icon size={20} />
+      </span>
+      <div className="min-w-0">
+        <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{label}</p>
+        <p className="mt-1 text-balance font-medium leading-snug">{value}</p>
+        <p className="mt-0.5 text-pretty text-sm text-muted-foreground">{note}</p>
+        {link && (
+          <a
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-violet hover:underline"
+          >
+            {link.label}
+            <ArrowUpRight size={14} />
+          </a>
+        )}
+      </div>
+    </GlassCard>
+  );
+}
+
+function Ornament({ className }: { className?: string }) {
+  return (
+    <div aria-hidden className={cn("flex items-center justify-center gap-3", className)}>
+      <span className="h-px w-16 bg-gradient-to-r from-transparent to-gold/60" />
+      <span className="h-1.5 w-1.5 rotate-45 bg-gold/80" />
+      <span className="h-px w-16 bg-gradient-to-l from-transparent to-gold/60" />
+    </div>
+  );
+}
+
+// Laid out like the printed program in the ad book, in the navy and gold of the seating cards
+function Program() {
+  return (
+    <motion.article
+      variants={fadeInUp}
+      className="bg-gala-table mx-auto max-w-3xl rounded-3xl p-2 text-white shadow-2xl shadow-violet-dark/25"
+    >
+      <div className="rounded-[1.25rem] px-6 py-12 ring-1 ring-inset ring-gold/35 sm:px-12 md:py-14">
+        <header className="text-center">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-gold-light/80">
+            The Evening&rsquo;s
+          </p>
+          <h3 className="text-gold-foil mt-2 text-5xl leading-none sm:text-6xl">Program</h3>
+        </header>
+
+        <Ornament className="my-8" />
+
+        <ul className="space-y-7 text-center">
+          {schedule.map((item) => (
+            <li key={item.title}>
+              <p className="text-balance font-serif text-2xl leading-tight sm:text-[1.75rem]">{item.title}</p>
+              {item.speaker && (
+                <p className="mt-1.5 text-balance text-sm text-white/60 sm:text-base">
+                  <span className="font-semibold text-gold-light">{item.speaker}</span>
+                  {item.role && (
+                    <>
+                      <span aria-hidden className="mx-2 text-gold/60">
+                        &middot;
+                      </span>
+                      <span className="sr-only">, </span>
+                      {item.role}
+                    </>
+                  )}
+                </p>
+              )}
+            </li>
+          ))}
+        </ul>
+
+        <Ornament className="mt-10" />
+      </div>
+    </motion.article>
+  );
+}
 
 export function Gala() {
   return (
     <SectionWrapper id="gala" className="bg-muted/30">
       <SectionHeading
-        badge="November 14, 2026"
+        badge={galaInfo.date}
         title="Anniversary Gala"
         subtitle="An unforgettable evening celebrating 40 years of excellence."
       />
 
-      {/* Event Info */}
       <motion.div
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true }}
-        className="mb-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
+        viewport={{ once: true, margin: "-50px" }}
+        className="mb-16 grid gap-6 md:grid-cols-3"
       >
-        {[
-          { icon: Calendar, label: "Date", value: galaInfo.date },
-          { icon: Clock, label: "Time", value: galaInfo.time },
-          { icon: MapPin, label: "Venue", value: galaInfo.venue },
-          { icon: Sparkles, label: "Dress Code", value: galaInfo.dressCode },
-        ].map((item) => (
-          <motion.div key={item.label} variants={fadeInUp}>
-            <GlassCard className="flex items-start gap-4">
-              <item.icon size={22} className="mt-0.5 flex-shrink-0 text-violet" />
-              <div>
-                <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">{item.label}</p>
-                <p className="mt-1 font-medium">{item.value}</p>
-              </div>
-            </GlassCard>
+        {details.map((detail) => (
+          <motion.div key={detail.label} variants={fadeInUp}>
+            <DetailCard {...detail} />
           </motion.div>
         ))}
       </motion.div>
 
-      <div className="grid gap-16 lg:grid-cols-2">
-        {/* Schedule */}
-        <div>
-          <h3 className="mb-6 text-2xl font-serif">Evening Schedule</h3>
-          {schedule.length === 0 ? (
-            <GlassCard className="flex items-center justify-center py-12">
-              <p className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
-                To Be Announced
-              </p>
-            </GlassCard>
-          ) : (
-            <div className="space-y-0">
-              {schedule.map((item, i) => (
-                <motion.div
-                  key={item.time}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.05 }}
-                  className="flex gap-4 border-l-2 border-violet/20 py-4 pl-6 last:border-l-violet"
-                >
-                  <span className="flex-shrink-0 text-sm font-medium text-violet">{item.time}</span>
-                  <div>
-                    <p className="font-semibold">{item.title}</p>
-                    <p className="text-sm text-muted-foreground">{item.description}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          )}
-        </div>
+      {schedule.length > 0 && (
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }}>
+          <Program />
+        </motion.div>
+      )}
 
-        {/* Speakers */}
-        <div>
-          <h3 className="mb-6 text-2xl font-serif">Featured Speakers</h3>
-          {speakers.length === 0 ? (
-            <GlassCard className="flex items-center justify-center py-12">
-              <p className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
-                To Be Announced
-              </p>
-            </GlassCard>
-          ) : (
-            <motion.div
-              variants={staggerContainer}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="grid gap-4 sm:grid-cols-2"
-            >
-              {speakers.map((speaker) => (
-                <motion.div key={speaker.name} variants={fadeInUp}>
-                  <GlassCard className="h-full">
-                    <div className="mb-3 h-12 w-12 rounded-full bg-violet/10 flex items-center justify-center text-violet font-bold font-serif">
-                      {speaker.name.split(" ").pop()?.[0]}
-                    </div>
-                    <h4 className="font-semibold">{speaker.name}</h4>
-                    <p className="text-sm text-violet">{speaker.title}</p>
-                    <Badge variant="muted" className="mt-3">{speaker.topic}</Badge>
-                  </GlassCard>
-                </motion.div>
-              ))}
-            </motion.div>
-          )}
-        </div>
-      </div>
-
-      {/* Donate & Tickets */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="mt-20 flex justify-center"
+        className="mt-16 flex flex-col items-stretch justify-center gap-4 sm:flex-row sm:items-center"
       >
+        <Link href="/seating">
+          <Button size="lg" className="w-full">
+            <Armchair size={20} />
+            Find Your Table
+          </Button>
+        </Link>
         <a href={galaInfo.donateUrl} target="_blank" rel="noopener noreferrer">
-          <Button size="lg">Donate &amp; Tickets</Button>
+          <Button size="lg" variant="outline" className="w-full">
+            Donate &amp; Tickets
+          </Button>
         </a>
       </motion.div>
     </SectionWrapper>

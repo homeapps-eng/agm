@@ -10,7 +10,7 @@ import { galaInfo } from "@/data/gala";
 import { galaTables, type GalaTable } from "@/data/seating";
 import { fadeInUp } from "@/lib/animations";
 import { cn } from "@/lib/utils";
-import { MapPin, Users, Search, SearchX, X } from "lucide-react";
+import { MapPin, Search, SearchX, X } from "lucide-react";
 
 // Case- and accent-insensitive, so "jose" finds "José"
 function fold(value: string) {
@@ -83,10 +83,6 @@ function TableCard({ table, matchedGuests, tableMatched, query }: TableResult & 
             );
           })}
         </ul>
-
-        <p className="mt-5 text-[11px] uppercase tracking-[0.25em] text-white/40">
-          {plural(table.guests.length, "guest")}
-        </p>
       </div>
     </article>
   );
@@ -95,8 +91,6 @@ function TableCard({ table, matchedGuests, tableMatched, query }: TableResult & 
 export function Seating() {
   const [search, setSearch] = useState("");
   const query = fold(search).trim().replace(/\s+/g, " ");
-
-  const totalGuests = galaTables.reduce((sum, t) => sum + t.guests.length, 0);
 
   const results = useMemo<TableResult[]>(() => {
     if (!query) {
@@ -157,10 +151,6 @@ export function Seating() {
           <span className="inline-flex items-center gap-2">
             <MapPin size={16} className="flex-shrink-0 text-violet" />
             {galaInfo.venue}
-          </span>
-          <span className="inline-flex items-center gap-2">
-            <Users size={16} className="flex-shrink-0 text-violet" />
-            {plural(totalGuests, "guest")} across {plural(galaTables.length, "table")}
           </span>
         </motion.div>
 

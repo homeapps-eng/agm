@@ -18,16 +18,30 @@ export const galaInfo = {
   donateUrl: "https://givebutter.com/c/agmgala",
 };
 
+export interface ScheduleSegment {
+  /** Time range shown above this part of the program */
+  time: string;
+  items: ScheduleItem[];
+}
+
 // From the Program page of the gala ad book
-export const schedule: ScheduleItem[] = [
-  { title: "Opening Remarks", speaker: "Sona Movsessian", role: "Master of Ceremonies" },
-  { title: "Anthems", speaker: "Megheti Bedourian", role: "Class of 2023" },
-  { title: "Invocation and Prayer", speaker: "Rev. Father Karekin Bedourian", role: "Pastor" },
-  { title: "School Board Message", speaker: "Arpie Baghdassarian Esq.", role: "Chairwoman" },
-  { title: "Patron Message", speaker: "Arthur Atinizian", role: "School Board Member" },
-  { title: "Principal’s Message", speaker: "Ani Sarkissian" },
-  { title: "Presentation of Faculty Recognition Awards" },
-  { title: "Alumni Remarks", speaker: "Sarkis Tatarian", role: "Class of 2002" },
-  { title: "Benediction", speaker: "H.E. Archbishop Kegham Khatcherian", role: "Prelate" },
-  { title: "Entertainment", speaker: "Allen G. Band" },
+export const schedule: ScheduleSegment[] = [
+  {
+    time: "7:30 PM – 9:00 PM",
+    items: [
+      { title: "Opening Remarks", speaker: "Sona Movsessian", role: "Master of Ceremonies" },
+      { title: "Anthems", speaker: "Megheti Bedourian", role: "Class of 2023" },
+      { title: "Invocation and Prayer", speaker: "Rev. Father Karekin Bedourian", role: "Pastor" },
+      { title: "School Board Message", speaker: "Arpie Baghdassarian Esq.", role: "Chairwoman" },
+      { title: "Patron Message", speaker: "Arthur Atinizian", role: "School Board Member" },
+      { title: "Principal’s Message", speaker: "Ani Sarkissian" },
+      { title: "Presentation of Faculty Recognition Awards" },
+      { title: "Alumni Remarks", speaker: "Sarkis Tatarian", role: "Class of 2002" },
+      { title: "Benediction", speaker: "H.E. Archbishop Kegham Khatcherian", role: "Prelate" },
+    ],
+  },
+  {
+    time: "9:00 PM – 12:00 AM",
+    items: [{ title: "Entertainment", speaker: "Allen G. Band" }],
+  },
 ];

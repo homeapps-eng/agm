@@ -89,27 +89,41 @@ function Program() {
 
         <Ornament className="my-8" />
 
-        <ul className="space-y-7 text-center">
-          {schedule.map((item) => (
-            <li key={item.title}>
-              <p className="text-balance font-serif text-2xl leading-tight sm:text-[1.75rem]">{item.title}</p>
-              {item.speaker && (
-                <p className="mt-1.5 text-balance text-sm text-white/60 sm:text-base">
-                  <span className="font-semibold text-gold-light">{item.speaker}</span>
-                  {item.role && (
-                    <>
-                      <span aria-hidden className="mx-2 text-gold/60">
-                        &middot;
-                      </span>
-                      <span className="sr-only">, </span>
-                      {item.role}
-                    </>
+        {schedule.map((segment, s) => (
+          <section key={segment.time} className="text-center">
+            {s > 0 && (
+              // Thin gold rule between parts of the evening
+              <div
+                aria-hidden
+                className="mx-auto my-10 h-px max-w-xs bg-gradient-to-r from-transparent via-gold/70 to-transparent"
+              />
+            )}
+            <p className="mb-6 text-xs font-semibold uppercase tracking-[0.3em] text-gold-light/80">
+              {segment.time}
+            </p>
+            <ul className="space-y-7">
+              {segment.items.map((item) => (
+                <li key={item.title}>
+                  <p className="text-balance font-serif text-2xl leading-tight sm:text-[1.75rem]">{item.title}</p>
+                  {item.speaker && (
+                    <p className="mt-1.5 text-balance text-sm text-white/60 sm:text-base">
+                      <span className="font-semibold text-gold-light">{item.speaker}</span>
+                      {item.role && (
+                        <>
+                          <span aria-hidden className="mx-2 text-gold/60">
+                            &middot;
+                          </span>
+                          <span className="sr-only">, </span>
+                          {item.role}
+                        </>
+                      )}
+                    </p>
                   )}
-                </p>
-              )}
-            </li>
-          ))}
-        </ul>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
 
         <Ornament className="mt-10" />
       </div>

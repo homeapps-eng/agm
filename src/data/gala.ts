@@ -9,7 +9,7 @@ export interface ScheduleItem {
 export const galaInfo = {
   date: "November 14, 2026",
   weekday: "Saturday",
-  time: "6:00 PM - 11:00 PM",
+  time: "6:00 PM - 12:00 AM",
   venue: "Richard Nixon Presidential Library, Yorba Linda, CA",
   venueName: "Richard Nixon Presidential Library",
   address: "18001 Yorba Linda Blvd, Yorba Linda, CA 92886",

@@ -109,7 +109,7 @@ export const galaTables: GalaTable[] = [
       "Noune Jamakordzian",
       "Margo Karamanlian",
       "Cristine Kelejian",
-      "Madlen Keshishian",
+      "Madeline Keshishian",
       "Zepur Ohannessian",
     ],
   },

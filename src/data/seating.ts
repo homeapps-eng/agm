@@ -446,6 +446,7 @@ export const galaTables: GalaTable[] = [
       "Taline Asbun",
       "Jennifer Daglian",
       "Sarkis Daglian",
+      "Natalie Escudero",
       "Aret Gokbas",
       "Thais Gokbas",
       "Mike Jamgotchian",

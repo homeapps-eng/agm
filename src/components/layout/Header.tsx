@@ -17,6 +17,7 @@ const navLinks = [
   { label: "Timeline", href: "/#timeline" },
   { label: "Gallery", href: "/#gallery" },
   { label: "Gala", href: "/#gala" },
+  { label: "Seating", href: "/seating" },
   { label: "Events", href: "/#events" },
   { label: "Sponsorship", href: "/#community" },
   { label: "Sponsors", href: "/#sponsors" },
@@ -72,7 +73,7 @@ export function Header() {
                 href={link.href}
                 aria-current={pathname === link.href ? "page" : undefined}
                 className={cn(
-                  "rounded-full px-2 py-2 text-sm xl:px-3 font-medium text-muted-foreground transition-colors hover:text-foreground",
+                  "rounded-full px-1.5 py-2 text-sm xl:px-3 font-medium text-muted-foreground transition-colors hover:text-foreground",
                   pathname === link.href && "bg-muted text-foreground"
                 )}
               >

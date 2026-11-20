@@ -23,6 +23,7 @@ export function Footer() {
                 { label: "Timeline", href: "/#timeline" },
                 { label: "Gallery", href: "/#gallery" },
                 { label: "Gala", href: "/#gala" },
+                { label: "Gala Photos", href: "/gallery" },
                 { label: "Table Seating", href: "/seating" },
                 { label: "Events", href: "/#events" },
                 { label: "AGM School", href: "https://www.agmschool.org/", external: true },

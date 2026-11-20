@@ -17,6 +17,7 @@ const navLinks = [
   { label: "Timeline", href: "/#timeline" },
   { label: "Gallery", href: "/#gallery" },
   { label: "Gala", href: "/#gala" },
+  { label: "Gala Photos", href: "/gallery" },
   { label: "Seating", href: "/seating" },
   { label: "Events", href: "/#events" },
   { label: "Sponsorship", href: "/#community" },
@@ -25,6 +26,11 @@ const navLinks = [
   { label: "Future", href: "/#future" },
   { label: "Campus", href: "/#campus" },
 ];
+
+// A page link also stays highlighted on the pages under it (Gala Photos on /gallery/photos)
+function isCurrent(pathname: string, href: string) {
+  return pathname === href || (!href.includes("#") && pathname.startsWith(`${href}/`));
+}
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -71,10 +77,10 @@ export function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                aria-current={pathname === link.href ? "page" : undefined}
+                aria-current={isCurrent(pathname, link.href) ? "page" : undefined}
                 className={cn(
                   "rounded-full px-1.5 py-2 text-sm xl:px-3 font-medium text-muted-foreground transition-colors hover:text-foreground",
-                  pathname === link.href && "bg-muted text-foreground"
+                  isCurrent(pathname, link.href) && "bg-muted text-foreground"
                 )}
               >
                 {link.label}
@@ -137,10 +143,10 @@ export function Header() {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.05 }}
-                  aria-current={pathname === link.href ? "page" : undefined}
+                  aria-current={isCurrent(pathname, link.href) ? "page" : undefined}
                   className={cn(
                     "border-b border-border py-4 text-2xl font-serif text-foreground",
-                    pathname === link.href && "text-violet"
+                    isCurrent(pathname, link.href) && "text-violet"
                   )}
                 >
                   {link.label}

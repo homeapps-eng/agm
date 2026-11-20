@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/Button";
 import { galaInfo, schedule } from "@/data/gala";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
 import { cn } from "@/lib/utils";
-import { Armchair, ArrowUpRight, CalendarDays, MapPin, Sparkles, type LucideIcon } from "lucide-react";
+import { Armchair, ArrowUpRight, CalendarDays, Images, MapPin, Sparkles, type LucideIcon } from "lucide-react";
 
 const directionsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
   `${galaInfo.venueName}, ${galaInfo.address}`
@@ -166,8 +166,14 @@ export function Gala() {
         viewport={{ once: true }}
         className="mt-16 flex flex-col items-stretch justify-center gap-4 sm:flex-row sm:items-center"
       >
-        <Link href="/seating">
+        <Link href="/gallery">
           <Button size="lg" className="w-full">
+            <Images size={20} />
+            Gala Photos
+          </Button>
+        </Link>
+        <Link href="/seating">
+          <Button size="lg" variant="outline" className="w-full">
             <Armchair size={20} />
             Find Your Table
           </Button>

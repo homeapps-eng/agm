@@ -141,6 +141,51 @@ h1, h2, h3, h4, h5, h6 {
   animation: float 6s ease-in-out infinite;
 }
 
+/* Gala gallery: sparks rising through the year stage (duration and delay set per spark) */
+@keyframes spark {
+  0% { transform: translateY(0); opacity: 0; }
+  12% { opacity: 0.9; }
+  70% { opacity: 0.5; }
+  100% { transform: translateY(-105svh); opacity: 0; }
+}
+
+.animate-spark {
+  animation: spark 12s linear infinite;
+  box-shadow: 0 0 8px 1px rgba(224, 188, 106, 0.6);
+}
+
+/* Slow zoom on slideshow photos (duration set to match the slide time) */
+@keyframes ken-burns {
+  from { transform: scale(1); }
+  to { transform: scale(1.06); }
+}
+
+.animate-ken-burns {
+  animation: ken-burns 6s ease-out both;
+}
+
+/* Gallery categories: a small drum of photos turning in place (radius set per drum) */
+@keyframes drum-spin {
+  from { transform: translateZ(calc(var(--drum-r) * -1)) rotateY(0deg); }
+  to { transform: translateZ(calc(var(--drum-r) * -1)) rotateY(-360deg); }
+}
+
+.animate-drum {
+  animation: drum-spin 48s linear infinite;
+  transform-style: preserve-3d;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-spark,
+  .animate-ken-burns,
+  .animate-drum {
+    animation: none;
+  }
+  .animate-drum {
+    transform: translateZ(calc(var(--drum-r) * -1));
+  }
+}
+
 .hide-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;

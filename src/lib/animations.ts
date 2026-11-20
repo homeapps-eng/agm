@@ -1,5 +1,14 @@
 import type { Variants } from "framer-motion";
 
+/** Starts fast and settles slowly into place */
+export const easeOutExpo = [0.16, 1, 0.3, 1] as const;
+
+/** Rises into place; for items staggered in by a parent */
+export const revealUp: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: easeOutExpo } },
+};
+
 export const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
